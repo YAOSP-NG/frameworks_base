@@ -855,7 +855,7 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
          * @return true if the device is charged
          */
         public boolean isCharged() {
-            return status == BATTERY_STATUS_FULL || level >= 100;
+            return status == BATTERY_STATUS_FULL;
         }
 
         /**
