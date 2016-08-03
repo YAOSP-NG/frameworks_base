@@ -305,9 +305,12 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
 
     @Override
     public void updateEverything() {
-        updateDateTimePosition();
-        updateVisibilities();
-        setClickable(false);
+        post(() -> {
+            updateDateTimePosition();
+            updateVisibilities();
+            setClickable(false);
+        });
+
     }
 
     protected void updateVisibilities() {
