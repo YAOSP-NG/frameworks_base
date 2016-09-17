@@ -42,6 +42,8 @@ public class DeviceInfoUtils {
 
     private static final String FILENAME_PROC_VERSION = "/proc/version";
     private static final String FILENAME_MSV = "/sys/board_properties/soc/msv";
+    private static final String FILENAME_PROC_MEMINFO = "/proc/meminfo";
+    private static final String FILENAME_PROC_CPUINFO = "/proc/cpuinfo";
 
     /**
      * Reads a line from the specified file.
@@ -169,4 +171,61 @@ public class DeviceInfoUtils {
         }
     }
 
+    public static String getMemInfo() {
+        String result = null;
+
+        try {
+            /* /proc/meminfo entries follow this format:
+             * MemTotal:         362096 kB
+             * MemFree:           29144 kB
+             * Buffers:            5236 kB
+             * Cached:            81652 kB
+             */
+            String firstLine = readLine(FILENAME_PROC_MEMINFO);
+            if (firstLine != null) {
+                String parts[] = firstLine.split("\\s+");
+                if (parts.length == 3) {
+                    result = Long.parseLong(parts[1])/1024 + " MB";
+                }
+            }
+        } catch (IOException e) {}
+
+        return result;
+    }
+
+    public static String getCPUInfo() {
+        String result = null;
+        String hardware = null;
+        String model = null;
+        final String PROC_HARDWARE_REGEX = "Hardware\\s*:\\s*(.*)$"; /* hardware string */
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(FILENAME_PROC_CPUINFO), 256);
+            String Line = reader.readLine();
+
+            while (Line != null && (hardware == null || model == null)) {
+                if (hardware == null && Line.startsWith("Hardware")) {
+                    Matcher m = Pattern.compile(PROC_HARDWARE_REGEX).matcher(Line);
+                    if (m.matches()) {
+                        hardware = m.group(1);
+                    }
+                } else if (model == null &&
+                        (Line.indexOf("model name") != -1 || Line.indexOf("Processor" ) != -1)) {
+                    model = Line.split(":")[1].trim();
+                }
+                Line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {}
+
+        if (hardware != null || model != null){
+            result  = (hardware != null) ? hardware : "";
+            result += (hardware != null && model != null) ? "\n" : "";
+            result += (model != null) ? model : "";
+        } else {
+            result = "Unknown";
+        }
+
+        return result;
+    }
 }
