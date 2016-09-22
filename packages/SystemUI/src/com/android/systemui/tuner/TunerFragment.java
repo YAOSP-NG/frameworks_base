@@ -43,12 +43,6 @@ public class TunerFragment extends PreferenceFragment {
 
     private static final String KEY_BATTERY_PCT = "battery_pct";
 
-    public static final String SETTING_SEEN_TUNER_WARNING = "seen_tuner_warning";
-
-    private static final String WARNING_TAG = "tuner_warning";
-
-    private static final int MENU_REMOVE = Menu.FIRST + 1;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,13 +59,6 @@ public class TunerFragment extends PreferenceFragment {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.tuner_prefs);
-
-        if (Settings.Secure.getInt(getContext().getContentResolver(), SETTING_SEEN_TUNER_WARNING,
-                0) == 0) {
-            if (getFragmentManager().findFragmentByTag(WARNING_TAG) == null) {
-                new TunerWarningFragment().show(getFragmentManager(), WARNING_TAG);
-            }
-        }
     }
 
     @Override
@@ -90,41 +77,12 @@ public class TunerFragment extends PreferenceFragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.add(Menu.NONE, MENU_REMOVE, Menu.NONE, R.string.remove_from_settings);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 getActivity().finish();
                 return true;
-            case MENU_REMOVE:
-                TunerService.showResetRequest(getContext(), new Runnable() {
-                    @Override
-                    public void run() {
-                        getActivity().finish();
-                    }
-                });
-                return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public static class TunerWarningFragment extends DialogFragment {
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            return new AlertDialog.Builder(getContext())
-                    .setTitle(R.string.tuner_warning_title)
-                    .setMessage(R.string.tuner_warning)
-                    .setPositiveButton(R.string.got_it, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Settings.Secure.putInt(getContext().getContentResolver(),
-                                    SETTING_SEEN_TUNER_WARNING, 1);
-                        }
-                    }).show();
-        }
     }
 }
