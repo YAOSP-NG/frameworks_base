@@ -118,6 +118,19 @@ public class NightModeController implements TunerService.Tunable {
         TunerService.get(mContext).setValue(NIGHT_MODE_ADJUST_TINT, ((Boolean) newValue) ? 1 : 0);
     }
 
+    public boolean isAdjustTint() {
+        return TunerService.get(mContext).getValue(NIGHT_MODE_ADJUST_TINT, 0) == 1;
+    }
+
+    public void setAdjustBrightness(Boolean newValue) {
+        TunerService.get(mContext).setValue(Secure.BRIGHTNESS_USE_TWILIGHT,
+                ((Boolean) newValue) ? 1 : 0);
+    }
+
+    public boolean isAdjustBrightness() {
+        return TunerService.get(mContext).getValue(Secure.BRIGHTNESS_USE_TWILIGHT, 0) == 1;
+    }
+
     public void addListener(Listener listener) {
         mListeners.add(listener);
         listener.onNightModeChanged();
