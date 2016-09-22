@@ -32,6 +32,7 @@ public class ClockPreference extends DropDownPreference implements TunerService.
     private boolean mHasSeconds;
     private ArraySet<String> mBlacklist;
     private boolean mHasSetValue;
+    private boolean mCanSetValue = false;
 
     public ClockPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -59,8 +60,11 @@ public class ClockPreference extends DropDownPreference implements TunerService.
             mClockEnabled = !mBlacklist.contains(mClock);
         } else if (Clock.CLOCK_SECONDS.equals(key)) {
             mHasSeconds = newValue != null && Integer.parseInt(newValue) != 0;
+            // We need mHasSeconds to be initialized before setting the state, else
+            // we will lose the seconds setting each time we enter SystemUI Tuner
+            mCanSetValue = true;
         }
-        if (!mHasSetValue) {
+        if (!mHasSetValue && mCanSetValue) {
             // Because of the complicated tri-state it can end up looping and setting state back to
             // what the user didn't choose.  To avoid this, just set the state once and rely on the
             // preference to handle updates.

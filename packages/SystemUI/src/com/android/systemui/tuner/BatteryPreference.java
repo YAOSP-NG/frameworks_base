@@ -47,9 +47,11 @@ public class BatteryPreference extends DropDownPreference implements TunerServic
     @Override
     public void onAttached() {
         super.onAttached();
-        TunerService.get(getContext()).addTunable(this, StatusBarIconController.ICON_BLACKLIST);
+        // We need mHasPercentage to be initialized first, else we will lose the
+        // percentage setting each time we enter SystemUI Tuner
         mHasPercentage = Settings.System.getInt(getContext().getContentResolver(),
                 SHOW_PERCENT_SETTING, 0) != 0;
+        TunerService.get(getContext()).addTunable(this, StatusBarIconController.ICON_BLACKLIST);
     }
 
     @Override
