@@ -87,17 +87,27 @@ public class NightModeFragment extends PreferenceFragment implements Tunable,
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         View switchBar = view.findViewById(R.id.switch_bar);
-        mSwitch = (Switch) switchBar.findViewById(android.R.id.switch_widget);
-        mSwitch.setChecked(mNightModeController.isEnabled());
         switchBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean newState = !mNightModeController.isEnabled();
-                MetricsLogger.action(getContext(), MetricsEvent.ACTION_TUNER_NIGHT_MODE, newState);
-                mNightModeController.setNightMode(newState);
-                mSwitch.setChecked(newState);
+                onClickSwitch();
             }
         });
+        mSwitch = (Switch) switchBar.findViewById(android.R.id.switch_widget);
+        mSwitch.setChecked(mNightModeController.isEnabled());
+        mSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickSwitch();
+            }
+        });
+    }
+
+    private void onClickSwitch() {
+        boolean newState = !mNightModeController.isEnabled();
+        MetricsLogger.action(getContext(), MetricsEvent.ACTION_TUNER_NIGHT_MODE, newState);
+        mNightModeController.setNightMode(newState);
+        mSwitch.setChecked(newState);
     }
 
     @Override
@@ -107,7 +117,6 @@ public class NightModeFragment extends PreferenceFragment implements Tunable,
         mNightModeController.addListener(this);
         TunerService.get(getContext()).addTunable(this, Secure.BRIGHTNESS_USE_TWILIGHT,
                 NightModeController.NIGHT_MODE_ADJUST_TINT);
-        calculateDisabled();
     }
 
     @Override
@@ -128,42 +137,22 @@ public class NightModeFragment extends PreferenceFragment implements Tunable,
             MetricsLogger.action(getContext(),
                     MetricsEvent.ACTION_TUNER_NIGHT_MODE_ADJUST_TINT, value);
             mNightModeController.setAdjustTint(value);
-            postCalculateDisabled();
+            if (!value && !mNightModeController.isAdjustBrightness()) {
+                // Enable brightness if it wasn't enabled, both disabled is not allowed
+                mNightModeController.setAdjustBrightness(true);
+            }
         } else if (mAdjustBrightness == preference) {
             MetricsLogger.action(getContext(),
                     MetricsEvent.ACTION_TUNER_NIGHT_MODE_ADJUST_BRIGHTNESS, value);
-            TunerService.get(getContext()).setValue(Secure.BRIGHTNESS_USE_TWILIGHT,
-                    value ? 1 : 0);
-            postCalculateDisabled();
+            mNightModeController.setAdjustBrightness(value);
+            if (!value && !mNightModeController.isAdjustTint()) {
+                // Enable brightness if it wasn't enabled, both disabled is not allowed
+                mNightModeController.setAdjustTint(true);
+            }
         } else {
             return false;
         }
         return true;
-    }
-
-    private void postCalculateDisabled() {
-        // Post this because its the easiest way to wait for all state to be calculated.
-        getView().post(new Runnable() {
-            @Override
-            public void run() {
-                calculateDisabled();
-            }
-        });
-    }
-
-    private void calculateDisabled() {
-        int enabledCount = (mAdjustTint.isChecked() ? 1 : 0)
-                + (mAdjustBrightness.isChecked() ? 1 : 0);
-        if (enabledCount == 1) {
-            if (mAdjustTint.isChecked()) {
-                mAdjustTint.setEnabled(false);
-            } else {
-                mAdjustBrightness.setEnabled(false);
-            }
-        } else {
-            mAdjustTint.setEnabled(true);
-            mAdjustBrightness.setEnabled(true);
-        }
     }
 
     @Override
