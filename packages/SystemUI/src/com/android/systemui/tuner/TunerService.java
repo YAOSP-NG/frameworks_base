@@ -52,8 +52,6 @@ import java.util.Set;
 
 public class TunerService extends SystemUI {
 
-    public static final String ACTION_CLEAR = "com.android.systemui.action.CLEAR_TUNER";
-
     private static final String TUNER_VERSION = "sysui_tuner_version";
 
     private static final int CURRENT_TUNER_VERSION = 1;
@@ -90,6 +88,7 @@ public class TunerService extends SystemUI {
             }
         };
         mUserTracker.startTracking();
+        setTunerEnabled(mContext, true);
     }
 
     private void upgradeTuner(int oldVersion, int newVersion) {
@@ -185,19 +184,6 @@ public class TunerService extends SystemUI {
         }
     }
 
-    public void clearAll() {
-        // A couple special cases.
-        Settings.Global.putString(mContentResolver, DemoMode.DEMO_MODE_ALLOWED, null);
-        Settings.System.putString(mContentResolver, BatteryMeterDrawable.SHOW_PERCENT_SETTING, null);
-        Intent intent = new Intent(DemoMode.ACTION_DEMO);
-        intent.putExtra(DemoMode.EXTRA_COMMAND, DemoMode.COMMAND_EXIT);
-        mContext.sendBroadcast(intent);
-
-        for (String key : mTunableLookup.keySet()) {
-            Settings.Secure.putString(mContentResolver, key, null);
-        }
-    }
-
     // Only used in other processes, such as the tuner.
     private static TunerService sInstance;
 
@@ -222,31 +208,6 @@ public class TunerService extends SystemUI {
             sInstance.start();
         }
         return sInstance;
-    }
-
-    public static final void showResetRequest(final Context context, final Runnable onDisabled) {
-        SystemUIDialog dialog = new SystemUIDialog(context);
-        dialog.setShowForAllUsers(true);
-        dialog.setMessage(R.string.remove_from_settings_prompt);
-        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, context.getString(R.string.cancel),
-                (OnClickListener) null);
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE,
-                context.getString(R.string.guest_exit_guest_dialog_remove), new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Tell the tuner (in main SysUI process) to clear all its settings.
-                context.sendBroadcast(new Intent(TunerService.ACTION_CLEAR));
-                // Disable access to tuner.
-                TunerService.setTunerEnabled(context, false);
-                // Make them sit through the warning dialog again.
-                Settings.Secure.putInt(context.getContentResolver(),
-                        TunerFragment.SETTING_SEEN_TUNER_WARNING, 0);
-                if (onDisabled != null) {
-                    onDisabled.run();
-                }
-            }
-        });
-        dialog.show();
     }
 
     public static final void setTunerEnabled(Context context, boolean enabled) {
@@ -287,14 +248,5 @@ public class TunerService extends SystemUI {
 
     public interface Tunable {
         void onTuningChanged(String key, String newValue);
-    }
-
-    public static class ClearReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (ACTION_CLEAR.equals(intent.getAction())) {
-                get(context).clearAll();
-            }
-        }
     }
 }
