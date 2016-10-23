@@ -24,6 +24,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Icon;
+import android.graphics.PorterDuff.Mode;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -78,6 +79,8 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
     private BatteryMeterView mBatteryMeterView;
     private BatteryMeterView mBatteryMeterViewKeyguard;
     private TextView mClock;
+
+    private TextView mNetworkTraffic;
 
     private int mIconSize;
     private int mIconHPadding;
@@ -136,6 +139,7 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         scaleBatteryMeterViews(context);
 
         mClock = (TextView) statusBar.findViewById(R.id.clock);
+        mNetworkTraffic = (TextView) statusBar.findViewById(R.id.networkTraffic);
         mDarkModeIconColorSingleTone = context.getColor(R.color.dark_mode_icon_color_single_tone);
         mLightModeIconColorSingleTone = context.getColor(R.color.light_mode_icon_color_single_tone);
         mHandler = new Handler();
@@ -526,6 +530,9 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         mBatteryMeterView.setDarkIntensity(
                 isInArea(mTintArea, mBatteryMeterView) ? mDarkIntensity : 0);
         mClock.setTextColor(getTint(mTintArea, mClock, mIconTint));
+        mNetworkTraffic.setTextColor(mIconTint);
+        mNetworkTraffic.setCompoundDrawableTintMode(Mode.MULTIPLY);
+        mNetworkTraffic.setCompoundDrawableTintList(ColorStateList.valueOf(mIconTint));
     }
 
     public void appTransitionPending() {
