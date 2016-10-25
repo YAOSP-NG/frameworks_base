@@ -4718,6 +4718,22 @@ public final class Settings {
         public static final String BLUETOOTH_ON = Global.BLUETOOTH_ON;
 
         /**
+         * Show or hide clock
+         * 0 - hide
+         * 1 - show (default)
+         * @hide
+         */
+        public static final String CLOCK_SHOW = "clock_show";
+
+        /**
+         * Show or hide clock seconds
+         * 0 - hide (default)
+         * 1 - show
+         * @hide
+         */
+        public static final String CLOCK_SECONDS = "clock_seconds";
+
+        /**
          * @deprecated Use {@link android.provider.Settings.Global#DATA_ROAMING} instead
          */
         @Deprecated
