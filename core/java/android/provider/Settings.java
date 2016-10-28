@@ -4734,6 +4734,56 @@ public final class Settings {
         public static final String CLOCK_SECONDS = "clock_seconds";
 
         /**
+         * AM/PM Style for clock options
+         * 0 - Normal AM/PM
+         * 1 - Small AM/PM
+         * 2 - No AM/PM (default)
+         * @hide
+         */
+        public static final String CLOCK_AM_PM_STYLE = "clock_am_pm_style";
+
+        /**
+         * Style of clock
+         * 0 - Right Clock (default)
+         * 1 - Center Clock
+         * 2 - Left Clock
+         * @hide
+         */
+        public static final String CLOCK_STYLE = "clock_style";
+
+        /**
+         * Shows custom date before clock time
+         * 0 - No Date (default)
+         * 1 - Small Date
+         * 2 - Normal Date
+         * @hide
+         */
+        public static final String CLOCK_DATE_SHOW = "clock_date_SHOW";
+
+        /**
+         * Sets the date string style
+         * 0 - Regular style (default)
+         * 1 - Lowercase
+         * 2 - Uppercase
+         * @hide
+         */
+        public static final String CLOCK_DATE_STYLE = "clock_date_style";
+
+        /**
+         * Stores the java DateFormat string for the date
+         * @hide
+         */
+        public static final String CLOCK_DATE_FORMAT = "clock_date_format";
+
+        /**
+         * Position of date
+         * 0 - Left of clock (default)
+         * 1 - Right of clock
+         * @hide
+         */
+        public static final String CLOCK_DATE_POSITION = "clock_date_position";
+
+        /**
          * @deprecated Use {@link android.provider.Settings.Global#DATA_ROAMING} instead
          */
         @Deprecated
