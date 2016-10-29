@@ -4734,6 +4734,20 @@ public final class Settings {
         public static final String CLOCK_SECONDS = "clock_seconds";
 
         /**
+         * Enable setting clock color
+         * 0 - disabled (default)
+         * 1 - enabled
+         * @hide
+         */
+        public static final String CLOCK_COLOR_OVERRIDE = "clock_color_override";
+
+        /**
+         * Setting for clock color
+         * @hide
+         */
+        public static final String CLOCK_COLOR = "clock_color";
+
+        /**
          * AM/PM Style for clock options
          * 0 - Normal AM/PM
          * 1 - Small AM/PM
