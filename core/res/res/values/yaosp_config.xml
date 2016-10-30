@@ -41,4 +41,7 @@
         <item>50</item>
     </integer-array>
 
+  <!-- Battery fast charge (in microwatt) -->
+  <integer name="config_chargingFastThreshold">7500000</integer>
+
 </resources>
