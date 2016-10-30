@@ -50,6 +50,7 @@ import android.os.UEventObserver;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.EventLog;
+import android.util.Log;
 import android.util.Slog;
 
 import java.io.File;
@@ -151,9 +152,15 @@ public final class BatteryService extends SystemService {
     private boolean mLedPulseEnabled;
     private int mBatteryLowARGB;
     private int mBatteryMediumARGB;
+    private int mBatteryMediumFastARGB;
     private int mBatteryFullARGB;
+    private int mChargingFastThreshold;
     private boolean mMultiColorLed;
 
+/*  This is not working on all devices --- don't use for now
+    private static final String SYSTEMUI_METADATA_NAME = "com.android.systemui";
+    private static final String KEYGUARD_METADATA_NAME = "com.android.keyguard";
+*/
     private boolean mSentLowBatteryBroadcast = false;
 
     public BatteryService(Context context) {
@@ -172,6 +179,11 @@ public final class BatteryService extends SystemService {
                 com.android.internal.R.integer.config_lowBatteryCloseWarningBump);
         mShutdownBatteryTemperature = mContext.getResources().getInteger(
                 com.android.internal.R.integer.config_shutdownBatteryTemperature);
+
+        // Grab fastcharge threshold
+//        mChargingFastThreshold = getConfigInteger(mContext, "config_chargingFastThreshold");
+        mChargingFastThreshold = mContext.getResources().getInteger(
+                com.android.internal.R.integer.config_chargingFastThreshold);
 
         // watch for invalid charger messages if the invalid_charger switch exists
         if (new File("/sys/devices/virtual/switch/invalid_charger/state").exists()) {
@@ -841,27 +853,53 @@ public final class BatteryService extends SystemService {
 
             final int level = mBatteryProps.batteryLevel;
             final int status = mBatteryProps.batteryStatus;
+
+            if (DEBUG) {
+                Slog.d(TAG, "Update batterylights: "
+                        + "mChargingFastThreshold" + mChargingFastThreshold
+                        + ", maxChargingCurrent" + mBatteryProps.maxChargingCurrent
+                        + ", maxChargingVoltage" + mBatteryProps.maxChargingVoltage
+                        + ", chargerAcOnline=" + mBatteryProps.chargerAcOnline
+                        + ", chargerUsbOnline=" + mBatteryProps.chargerUsbOnline
+                        + ", chargerWirelessOnline=" + mBatteryProps.chargerWirelessOnline
+                        + ", batteryStatus=" + mBatteryProps.batteryStatus
+                        + ", batteryHealth=" + mBatteryProps.batteryHealth
+                        + ", batteryPresent=" + mBatteryProps.batteryPresent
+                        + ", batteryLevel=" + mBatteryProps.batteryLevel
+                        + ", batteryTechnology=" + mBatteryProps.batteryTechnology
+                        + ", batteryVoltage=" + mBatteryProps.batteryVoltage
+                        + ", batteryTemperature=" + mBatteryProps.batteryTemperature
+                        + ", mBatteryLevelCritical=" + mBatteryLevelCritical
+                        + ", mPlugType=" + mPlugType);
+            }
+
+            final int maxChargingMicroWatt = (mBatteryProps.maxChargingCurrent / 1000)
+                            * (mBatteryProps.maxChargingVoltage / 1000);
+
             if (!mLightEnabled) {
                 // No lights if explicitly disabled
                 mBatteryLight.turnOff();
-            } else if (level < mLowBatteryWarningLevel) {
-                if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
-                    // Battery is charging and low
-                    mBatteryLight.setColor(mBatteryLowARGB);
-                } else if (mLedPulseEnabled) {
-                    // Battery is low and not charging
-                    mBatteryLight.setFlashing(mBatteryLowARGB, Light.LIGHT_FLASH_TIMED,
-                            mBatteryLedOn, mBatteryLedOff);
-                } else {
-                    // "Pulse low battery light" is disabled, no lights.
-                    mBatteryLight.turnOff();
-                }
             } else if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
                 // Battery is charging
-                mBatteryLight.setColor(mBatteryMediumARGB);
+                if (maxChargingMicroWatt > mChargingFastThreshold) {
+                    // Fast charging
+                    mBatteryLight.setColor(mBatteryMediumFastARGB);
+                } else {
+                    // Normal or slow charging
+                    mBatteryLight.setColor(mBatteryMediumARGB);
+                }
             } else if (status == BatteryManager.BATTERY_STATUS_FULL) {
                 // Battery is full
                 mBatteryLight.setColor(mBatteryFullARGB);
+            } else if (level < mLowBatteryWarningLevel) {
+                // Battery is low
+                if (mLedPulseEnabled) {
+                    // LED blinking requested
+                    mBatteryLight.setFlashing(mBatteryLowARGB, Light.LIGHT_FLASH_TIMED,
+                            mBatteryLedOn, mBatteryLedOff);
+                } else {
+                    mBatteryLight.setColor(mBatteryLowARGB);
+                }
             } else {
                 // No lights if not charging and not low
                 mBatteryLight.turnOff();
@@ -963,6 +1001,9 @@ public final class BatteryService extends SystemService {
                         Settings.System.getUriFor(Settings.System.BATTERY_LIGHT_MEDIUM_COLOR),
                         false, this, UserHandle.USER_ALL);
                 resolver.registerContentObserver(
+                        Settings.System.getUriFor(Settings.System.BATTERY_LIGHT_MEDIUM_FAST_COLOR),
+                        false, this, UserHandle.USER_ALL);
+                resolver.registerContentObserver(
                         Settings.System.getUriFor(Settings.System.BATTERY_LIGHT_FULL_COLOR),
                         false, this, UserHandle.USER_ALL);
             }
@@ -993,6 +1034,9 @@ public final class BatteryService extends SystemService {
             mBatteryMediumARGB = Settings.System.getInt(resolver,
                     Settings.System.BATTERY_LIGHT_MEDIUM_COLOR, res.getInteger(
                     com.android.internal.R.integer.config_notificationsBatteryMediumARGB));
+            mBatteryMediumFastARGB = Settings.System.getInt(resolver,
+                    Settings.System.BATTERY_LIGHT_MEDIUM_FAST_COLOR, res.getInteger(
+                    com.android.internal.R.integer.config_notificationsBatteryMediumFastARGB));
             mBatteryFullARGB = Settings.System.getInt(resolver,
                     Settings.System.BATTERY_LIGHT_FULL_COLOR, res.getInteger(
                     com.android.internal.R.integer.config_notificationsBatteryFullARGB));
@@ -1000,4 +1044,36 @@ public final class BatteryService extends SystemService {
             updateLedPulse();
         }
     }
+
+/*  This is not working on all devices --- don't use for now
+    private static Integer getConfigInteger(Context context, String configIntegerName) {
+        int resId = -1;
+        Integer i = 0;
+        PackageManager pm;
+        
+        if (context != null) {
+            pm = context.getPackageManager();
+            if (pm == null) {
+                return null;
+            }
+        } else {
+            return null;
+        }
+
+        Resources systemuiResources;
+        try {
+            systemuiResources = pm.getResourcesForApplication(SYSTEMUI_METADATA_NAME);
+        } catch (Exception e) {
+            Log.e("BatteryService:", "can't access SystemUI resources",e);
+            return null;
+        }
+
+        resId = systemuiResources.getIdentifier(
+            KEYGUARD_METADATA_NAME + ":integer/" + configIntegerName, null, null);
+        if (resId > 0) {
+            i = systemuiResources.getInteger(resId);
+        }
+        return i;
+    }
+*/
 }
