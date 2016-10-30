@@ -3606,16 +3606,22 @@ public final class Settings {
         public static final String DOUBLE_TAP_WAKE_DOZE = "double_tap_wake_doze";
 
         /**
-         * What color to use for the battery LED while charging - low
+         * What color to use for the battery LED while low
          * @hide
          */
         public static final String BATTERY_LIGHT_LOW_COLOR = "battery_light_low_color";
 
         /**
-         * What color to use for the battery LED while charging - medium
+         * What color to use for the battery LED while charging - slow or normal
          * @hide
          */
         public static final String BATTERY_LIGHT_MEDIUM_COLOR = "battery_light_medium_color";
+
+        /**
+         * What color to use for the battery LED while charging - fast
+         * @hide
+         */
+        public static final String BATTERY_LIGHT_MEDIUM_FAST_COLOR = "battery_light_medium_fast_color";
 
         /**
          * What color to use for the battery LED while charging - full
