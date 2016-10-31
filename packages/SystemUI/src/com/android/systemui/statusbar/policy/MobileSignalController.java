@@ -16,9 +16,13 @@
 package com.android.systemui.statusbar.policy;
 
 import android.content.Context;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.net.NetworkCapabilities;
 import android.os.Looper;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.SignalStrength;
@@ -67,6 +71,9 @@ public class MobileSignalController extends SignalController<
     private MobileIconGroup mDefaultIcons;
     private Config mConfig;
 
+    private ContentResolver mContentResolver;
+    private boolean mDataConnectionWhenRoaming;
+
     // TODO: Reduce number of vars passed in, if we have the NetworkController, probably don't
     // need listener lists anymore.
     public MobileSignalController(Context context, Config config, boolean hasMobileData,
@@ -76,6 +83,16 @@ public class MobileSignalController extends SignalController<
         super("MobileSignalController(" + info.getSubscriptionId() + ")", context,
                 NetworkCapabilities.TRANSPORT_CELLULAR, callbackHandler,
                 networkController);
+
+        // register observer to listen for settings changes
+        mContentResolver = context.getContentResolver();
+        mContentResolver.registerContentObserver(
+            Settings.System.getUriFor(Settings.System.DATACONNECTION_WHEN_ROAMING),
+            false, new DataConnectionObserver());
+
+        mDataConnectionWhenRoaming = Settings.System.getIntForUser(mContentResolver,
+            Settings.System.DATACONNECTION_WHEN_ROAMING, 0, UserHandle.USER_CURRENT) == 1;
+
         mNetworkToIconLookup = new SparseArray<>();
         mConfig = config;
         mPhone = phone;
@@ -393,7 +410,7 @@ public class MobileSignalController extends SignalController<
 
         if (isCarrierNetworkChangeActive()) {
             mCurrentState.iconGroup = TelephonyIcons.CARRIER_NETWORK_CHANGE;
-        } else if (isRoaming()) {
+        } else if (isRoaming() && (!mCurrentState.dataConnected || !mDataConnectionWhenRoaming)) {
             mCurrentState.iconGroup = TelephonyIcons.ROAMING;
         } else if (isDataDisabled()) {
             mCurrentState.iconGroup = TelephonyIcons.DATA_DISABLED;
@@ -563,6 +580,18 @@ public class MobileSignalController extends SignalController<
                     && ((MobileState) o).carrierNetworkChangeMode == carrierNetworkChangeMode
                     && ((MobileState) o).userSetup == userSetup
                     && ((MobileState) o).isDefault == isDefault;
+        }
+    }
+
+    private class DataConnectionObserver extends ContentObserver {
+        public DataConnectionObserver() {
+            super(null);
+        }
+        @Override
+        public void onChange(boolean selfChange) {
+            mDataConnectionWhenRoaming = Settings.System.getIntForUser(mContentResolver,
+                Settings.System.DATACONNECTION_WHEN_ROAMING, 0, UserHandle.USER_CURRENT) == 1;
+            updateTelephony();
         }
     }
 }
