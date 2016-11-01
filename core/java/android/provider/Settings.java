@@ -2895,6 +2895,15 @@ public final class Settings {
         public static final String VOLUME_BLUETOOTH_SCO = "volume_bluetooth_sco";
 
         /**
+         * Swap volume buttons when the screen is rotated
+         * 0 - Disabled
+         * 1 - Enabled (screen is rotated by 90 or 180 degrees: phone, hybrid)
+         * 2 - Enabled (screen is rotated by 180 or 270 degrees: tablet)
+         * @hide
+         */
+        public static final String SWAP_VOLUME_KEYS_ON_ROTATION = "swap_volume_keys_on_rotation";
+
+        /**
          * Master volume (float in the range 0.0f to 1.0f).
          *
          * @hide
