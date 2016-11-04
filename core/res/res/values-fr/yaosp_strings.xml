@@ -40,4 +40,8 @@
     <string name="global_action_search">Recherche</string>
     <string name="global_action_voicesearch">Recherche vocale</string>
 
+    <!-- kill app long press back -->
+    <string name="app_killed_message"><xliff:g id="string">%s</xliff:g> arrété</string>
+    <string name="no_app_killed_message">Rien à arréter</string>
+
 </resources>
