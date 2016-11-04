@@ -40,4 +40,8 @@
     <string name="global_action_search">Suche</string>
     <string name="global_action_voicesearch">Sprachsuche</string>
 
+    <!-- kill app long press back -->
+    <string name="app_killed_message"><xliff:g id="string">%s</xliff:g> geschlossen</string>
+    <string name="no_app_killed_message">Nichts zu schließen</string>
+
 </resources>
