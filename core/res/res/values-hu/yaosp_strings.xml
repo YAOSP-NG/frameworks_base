@@ -38,6 +38,7 @@
     <string name="global_action_voicesearch">Hangkeresés</string>
      
     <!-- kill app long press back -->
-    <string name="app_killed_message">Alkalmazás bezárva</string>
+    <string name="app_killed_message"><xliff:g id="string">%s</xliff:g> bezárva</string>
+    <string name="no_app_killed_message">Nincs bezárandó alkalmazás</string>
 
 </resources>
