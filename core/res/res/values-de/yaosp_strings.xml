@@ -44,4 +44,11 @@
     <string name="app_killed_message"><xliff:g id="string">%s</xliff:g> geschlossen</string>
     <string name="no_app_killed_message">Nichts zu schließen</string>
 
+    <!-- ADB over network notification -->
+    <string name="adb_net_active_notification_title">ADB über Netzwerk aktiviert</string>
+    <!-- ADB over USB and network notification -->
+    <string name="adb_both_active_notification_title">ADB über USB &amp; Netzwerk aktiviert</string>
+    <!-- ADB notification message-->
+    <string name="adb_active_generic_notification_message">Berühren, um Debugging zu deaktivieren.</string>
+
 </resources>
