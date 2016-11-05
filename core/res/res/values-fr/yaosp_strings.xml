@@ -44,4 +44,11 @@
     <string name="app_killed_message"><xliff:g id="string">%s</xliff:g> arrété</string>
     <string name="no_app_killed_message">Rien à arréter</string>
 
+    <!-- ADB over network notification -->
+    <string name="adb_net_active_notification_title">ADB par réseau activé</string>
+    <!-- ADB over USB and network notification -->
+    <string name="adb_both_active_notification_title">ADB par USB &amp; réseau activé</string>
+    <!-- ADB notification message-->
+    <string name="adb_active_generic_notification_message">Touchez pour désactiver le débogage.</string>
+
 </resources>
