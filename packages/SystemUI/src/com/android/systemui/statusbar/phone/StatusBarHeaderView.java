@@ -823,4 +823,8 @@ public class StatusBarHeaderView extends BaseStatusBarHeader implements View.OnC
                     .start();
         }
     };
+
+    @Override
+    public void updateSettings() {
+    }
 }
