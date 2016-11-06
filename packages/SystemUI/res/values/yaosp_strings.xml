@@ -28,14 +28,15 @@
     <!-- Screen record notification error title -->
     <string name="screenrecord_notif_error">Unable to record screen</string>
 
+    <!-- Additonal QS tiles -->
     <!-- ADB over network Tile -->
     <string name="quick_settings_adb_network">ADB network</string>
     <string name="quick_settings_network_adb_enabled_label">Enabled</string>
     <string name="quick_settings_network_adb_disabled_label">Disabled</string>
-    <string name="accessibility_quick_settings_network_adb_off">ADB over network off.</string>
-    <string name="accessibility_quick_settings_network_adb_on">ADB over network on.</string>
-    <string name="accessibility_quick_settings_network_adb_changed_off">ADB over network turned off.</string>
-    <string name="accessibility_quick_settings_network_adb_changed_on">ADB over network turned on.</string>
+    <string name="accessibility_quick_settings_network_adb_off">ADB over network off</string>
+    <string name="accessibility_quick_settings_network_adb_on">ADB over network on</string>
+    <string name="accessibility_quick_settings_network_adb_changed_off">ADB over network turned off</string>
+    <string name="accessibility_quick_settings_network_adb_changed_on">ADB over network turned on</string>
 
     <!-- Ambient Display QS tile -->
     <string name="accessibility_quick_settings_ambient_display_off">Ambient Display off</string>
@@ -49,8 +50,8 @@
 
     <!-- Caffeine QS Tile -->
     <string name="quick_settings_caffeine_label">Caffeine</string>
-    <string name="accessibility_quick_settings_caffeine_off">Caffeine off.</string>
-    <string name="accessibility_quick_settings_caffeine_on">Caffeine on.</string>
+    <string name="accessibility_quick_settings_caffeine_off">Caffeine off</string>
+    <string name="accessibility_quick_settings_caffeine_on">Caffeine on</string>
 
     <!-- Expanded Desktop QS Tile -->
     <string name="quick_settings_expanded_desktop">Expanded</string>
@@ -66,10 +67,10 @@
 
     <!-- NFC QS tile -->
     <string name="quick_settings_nfc_label">NFC</string>
-    <string name="accessibility_quick_settings_nfc_off">NFC off.</string>
-    <string name="accessibility_quick_settings_nfc_on">NFC on.</string>
-    <string name="accessibility_quick_settings_nfc_changed_off">NFC turned off.</string>
-    <string name="accessibility_quick_settings_nfc_changed_on">NFC turned on.</string>
+    <string name="accessibility_quick_settings_nfc_off">NFC off</string>
+    <string name="accessibility_quick_settings_nfc_on">NFC on</string>
+    <string name="accessibility_quick_settings_nfc_changed_off">NFC turned off</string>
+    <string name="accessibility_quick_settings_nfc_changed_on">NFC turned on</string>
 
     <!-- Quick settings customization -->
     <string name="qs_menu_item_columns">Columns</string>
@@ -99,10 +100,10 @@
     <string name="accessibility_quick_settings_sync_changed_on">Sync turned on</string>
 
     <!-- USB tether QS tile -->
+    <string name="quick_settings_usb_tether_label">USB tethering</string>
     <string name="accessibility_quick_settings_usb_tether_off">USB tethering off</string>
     <string name="accessibility_quick_settings_usb_tether_on">USB tethering on</string>
     <string name="accessibility_quick_settings_usb_tether_changed_off">USB tethering turned off</string>
     <string name="accessibility_quick_settings_usb_tether_changed_on">USB tethering turned on</string>
-    <string name="quick_settings_usb_tether_label">USB tethering</string>
 
 </resources>
