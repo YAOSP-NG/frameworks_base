@@ -450,6 +450,30 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
     };
 
+    private class QSSettingsObserver extends ContentObserver {
+        QSSettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_LAYOUT_COLUMNS),
+                    false, this, UserHandle.USER_ALL);
+            update();
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            update();
+        }
+
+        public void update() {
+            if (mHeader != null) {
+                mHeader.updateSettings();
+            }
+        }
+    }
+    private QSSettingsObserver mQSSettingsObserver = new QSSettingsObserver(mHandler);
     private int mInteractingWindows;
     private boolean mAutohideSuspended;
     private int mStatusBarMode;
@@ -662,6 +686,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         // in session state
 
         addNavigationBar();
+
+        mQSSettingsObserver.observe();
 
         // Lastly, call to the icon policy to install/update all the icons.
         mIconPolicy = new PhoneStatusBarPolicy(mContext, mIconController, mCastController,
@@ -3458,6 +3484,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         clearCurrentMediaNotification();
         mLockscreenWallpaper.setCurrentUser(newUserId);
         updateMediaMetaData(true, false);
+        mQSSettingsObserver.update();
     }
 
     private void setControllerUsers() {
