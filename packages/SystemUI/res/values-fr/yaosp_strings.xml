@@ -28,4 +28,79 @@
     <!-- Screen record notification error title -->
     <string name="screenrecord_notif_error">Enregistrement écran impossible</string>
 
+    <!-- Additonal QS tiles -->
+    <!-- ADB over network Tile -->
+    <string name="quick_settings_adb_network">ADB par réseau</string>
+    <string name="quick_settings_network_adb_enabled_label">Enabled</string>
+    <string name="quick_settings_network_adb_disabled_label">Disabled</string>
+    <string name="accessibility_quick_settings_network_adb_off">ADB par réseau inactif</string>
+    <string name="accessibility_quick_settings_network_adb_on">ADB par réseau actif</string>
+    <string name="accessibility_quick_settings_network_adb_changed_off">ADB par réseau désactivé</string>
+    <string name="accessibility_quick_settings_network_adb_changed_on">ADB par réseau activé</string>
+
+    <!-- Ambient Display QS tile -->
+    <string name="accessibility_quick_settings_ambient_display_off">Affichage en mode Veille désactivé</string>
+    <string name="accessibility_quick_settings_ambient_display_on">Affichage en mode Veille activé</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_off">Affichage en mode Veille a été désactivé</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_on">Affichage en mode Veille a été activé</string>
+    <string name="quick_settings_ambient_display_label">Affichage en mode Veille</string>
+
+    <!-- Brightness QS Tile -->
+    <string name="quick_settings_brightness">Luminosité</string>
+
+    <!-- Caffeine QS Tile -->
+    <string name="quick_settings_caffeine_label">Cafféine</string>
+    <string name="accessibility_quick_settings_caffeine_off">Cafféine inactive</string>
+    <string name="accessibility_quick_settings_caffeine_on">Cafféine active</string>
+
+    <!-- Expanded Desktop QS Tile -->
+    <string name="quick_settings_expanded_desktop">Étendu</string>
+    <string name="quick_settings_expanded_desktop_off">Normal</string>
+
+    <!-- IME selector Tile -->
+    <string name="quick_settings_ime_label">Mode saisie</string>
+
+    <!-- Music QS Tile -->
+    <string name="quick_settings_music_label">Musique</string>
+    <string name="quick_settings_music_play">Jouer</string>
+    <string name="quick_settings_music_pause">Pause</string>
+
+    <!-- NFC QS tile -->
+    <string name="quick_settings_nfc_label">NFC</string>
+    <string name="accessibility_quick_settings_nfc_off">NFC désactivé</string>
+    <string name="accessibility_quick_settings_nfc_on">NFC activé</string>
+    <string name="accessibility_quick_settings_nfc_changed_off">NFC a été désactivé</string>
+    <string name="accessibility_quick_settings_nfc_changed_on">NFC a été activé</string>
+
+    <!-- Quick settings customization -->
+    <string name="qs_menu_item_columns">Colonnes</string>
+    <string name="qs_menu_item_reset">Réinitialiser</string>
+
+    <!-- Reboot/Recovery QS Tile -->
+    <string name="quick_settings_reboot_label">Redémarrer</string>
+    <string name="quick_settings_reboot_recovery_label">Recovery</string>
+
+    <!-- Screenshot QS tile -->
+    <string name="shortcut_screenshot">Capture d\'écran</string>
+
+    <!-- Sound QS Tile -->
+    <string name="quick_settings_sound_label">Sonnerie</string>
+    <string name="quick_settings_sound_ring">Sonnerie</string>
+    <string name="quick_settings_sound_vibrate">Vibreur</string>
+    <string name="quick_settings_sound_dnd">Silencieux</string>
+
+    <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">Synchro</string>
+    <string name="accessibility_quick_settings_sync_off">Synchro désactivée</string>
+    <string name="accessibility_quick_settings_sync_on">Synchro activée</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Synchro a été désactivée</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Synchro a été activée</string>
+
+    <!-- USB tether QS tile -->
+    <string name="quick_settings_usb_tether_label">Modem USB</string>
+    <string name="accessibility_quick_settings_usb_tether_off">Modem USB désactivé</string>
+    <string name="accessibility_quick_settings_usb_tether_on">Modem USB activé</string>
+    <string name="accessibility_quick_settings_usb_tether_changed_off">Modem USB a été désactivé</string>
+    <string name="accessibility_quick_settings_usb_tether_changed_on">Modem USB a été activé</string>
+
 </resources>
