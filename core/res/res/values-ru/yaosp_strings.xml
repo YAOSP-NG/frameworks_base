@@ -39,4 +39,15 @@
     <string name="global_action_search">Поиск</string>
     <string name="global_action_voicesearch">Голосовой поиск</string>
 
+    <!-- kill app long press back -->
+    <string name="app_killed_message"><xliff:g id="string">%s</xliff:g> закрыто</string>
+    <string name="no_app_killed_message">Нечего закрывать</string>
+
+    <!-- ADB over network notification -->
+    <string name="adb_net_active_notification_title">Включена отладка по сети</string>
+    <!-- ADB over USB and network notification -->
+    <string name="adb_both_active_notification_title">Включена отладка по сети и USB</string>
+    <!-- ADB notification message-->
+    <string name="adb_active_generic_notification_message">Нажмите для выключения.</string>
+
 </resources>

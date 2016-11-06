@@ -28,4 +28,82 @@
     <!-- Screen record notification error title -->
     <string name="screenrecord_notif_error">Не удалось сделать запись</string>
 
+    <!-- Additonal QS tiles -->
+    <!-- ADB over network Tile -->
+    <string name="quick_settings_adb_network">Отладка по сети</string>
+    <string name="quick_settings_network_adb_enabled_label">Включена</string>
+    <string name="quick_settings_network_adb_disabled_label">Выключена</string>
+    <string name="accessibility_quick_settings_network_adb_off">Отладка по сети выкл.</string>
+    <string name="accessibility_quick_settings_network_adb_on">Отладка по сети вкл.</string>
+    <string name="accessibility_quick_settings_network_adb_changed_off">Отладка по сети была выключена</string>
+    <string name="accessibility_quick_settings_network_adb_changed_on">Отладка по сети была включена</string>
+
+    <!-- Ambient Display QS tile -->
+    <string name="accessibility_quick_settings_ambient_display_off">Ambient Display выкл.</string>
+    <string name="accessibility_quick_settings_ambient_display_on">Ambient Display вкл.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_off">Ambient Display был выключен</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_on">Ambient Display был включен</string>
+    <string name="quick_settings_ambient_display_label">Ambient Display</string>
+
+    <!-- Brightness QS Tile -->
+    <string name="quick_settings_brightness">Яркость</string>
+
+    <!-- Caffeine QS Tile -->
+    <string name="quick_settings_caffeine_label">Кофеин</string>
+    <string name="accessibility_quick_settings_caffeine_off">Кофеин выключен</string>
+    <string name="accessibility_quick_settings_caffeine_on">Кофеин включен</string>
+
+    <!-- Expanded Desktop QS Tile -->
+    <string name="quick_settings_expanded_desktop">Расширенный</string>
+    <string name="quick_settings_expanded_desktop_off">Обычный</string>
+
+    <!-- IME selector Tile -->
+    <string name="quick_settings_ime_label">Способ ввода</string>
+
+    <!-- Music QS Tile -->
+    <string name="quick_settings_music_label">Музыка</string>
+    <string name="quick_settings_music_play">Играть</string>
+    <string name="quick_settings_music_pause">Пауза</string>
+
+    <!-- NFC QS tile -->
+    <string name="quick_settings_nfc_label">NFC</string>
+    <string name="accessibility_quick_settings_nfc_off">NFC выкл.</string>
+    <string name="accessibility_quick_settings_nfc_on">NFC вкл.</string>
+    <string name="accessibility_quick_settings_nfc_changed_off">NFC был выключен</string>
+    <string name="accessibility_quick_settings_nfc_changed_on">NFC был включен</string>
+
+    <!-- Quick settings customization -->
+    <string name="qs_menu_item_columns">Столбцы</string>
+    <string name="qs_menu_item_columns_three">3</string>
+    <string name="qs_menu_item_columns_four">4</string>
+    <string name="qs_menu_item_columns_five">5</string>
+    <string name="qs_menu_item_reset">Сброс</string>
+
+    <!-- Reboot/Recovery QS Tile -->
+    <string name="quick_settings_reboot_label">Перезагрузка</string>
+    <string name="quick_settings_reboot_recovery_label">Рекавери</string>
+
+    <!-- Screenshot QS tile -->
+    <string name="quick_settings_screenshot_label">Снимок экрана</string>
+
+    <!-- Sound QS Tile -->
+    <string name="quick_settings_sound_label">Звук</string>
+    <string name="quick_settings_sound_ring">Все звуки</string>
+    <string name="quick_settings_sound_vibrate">Вибрировать</string>
+    <string name="quick_settings_sound_dnd">Не беспокоить</string>
+
+    <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">Синхр.</string>
+    <string name="accessibility_quick_settings_sync_off">Синхр. выкл.</string>
+    <string name="accessibility_quick_settings_sync_on">Синхр. вкл.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Синхронизация была выключена</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Синхронизация была включена</string>
+
+    <!-- USB tether QS tile -->
+    <string name="quick_settings_usb_tether_label">Интернет по USB</string>
+    <string name="accessibility_quick_settings_usb_tether_off">Интернет по USB выкл.</string>
+    <string name="accessibility_quick_settings_usb_tether_on">Интернет по USB вкл.</string>
+    <string name="accessibility_quick_settings_usb_tether_changed_off">Интернет по USB был выключен</string>
+    <string name="accessibility_quick_settings_usb_tether_changed_on">Интернет по USB был включен</string>
+
 </resources>
