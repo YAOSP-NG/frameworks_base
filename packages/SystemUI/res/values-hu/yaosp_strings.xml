@@ -24,5 +24,83 @@
     <string name="screenrecord_notif_pointer_off">Mutató elrejtése</string>
     <!-- Screen record notification error title -->
     <string name="screenrecord_notif_error">Képernyőfelvétel nem lehetséges</string>
+     
+    <!-- Additonal QS tiles -->
+    <!-- ADB over network Tile -->
+    <string name="quick_settings_adb_network">ADB hálózaton keresztül</string>
+    <string name="quick_settings_network_adb_enabled_label">Engedélyezve</string>
+    <string name="quick_settings_network_adb_disabled_label">Letiltva</string>
+    <string name="accessibility_quick_settings_network_adb_off">ADB hálózaton keresztül ki</string>
+    <string name="accessibility_quick_settings_network_adb_on">ADB hálózaton keresztül be</string>
+    <string name="accessibility_quick_settings_network_adb_changed_off">ADB hálózaton keresztül kikapcsolva</string>
+    <string name="accessibility_quick_settings_network_adb_changed_on">ADB hálózaton keresztül bekapcsolva</string>
+
+    <!-- Ambient Display QS tile -->
+    <string name="accessibility_quick_settings_ambient_display_off">Környezeti kijelző ki</string>
+    <string name="accessibility_quick_settings_ambient_display_on">Környezeti kijelző be</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_off">Környezeti kijelző kikapcsolva</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_on">Környezeti kijelző bekapcsolva</string>
+    <string name="quick_settings_ambient_display_label">Környezeti kijelző</string>
+
+    <!-- Brightness QS Tile -->
+    <string name="quick_settings_brightness">Fényerő</string>
+
+    <!-- Caffeine QS Tile -->
+    <string name="quick_settings_caffeine_label">Koffein</string>
+    <string name="accessibility_quick_settings_caffeine_off">Koffein ki</string>
+    <string name="accessibility_quick_settings_caffeine_on">Koffein be</string>
+
+    <!-- Expanded Desktop QS Tile -->
+    <string name="quick_settings_expanded_desktop">Kiterjesztett</string>
+    <string name="quick_settings_expanded_desktop_off">Normál</string>
+
+    <!-- IME selector Tile -->
+    <string name="quick_settings_ime_label">Beviteli mód</string>
+
+    <!-- Music QS Tile -->
+    <string name="quick_settings_music_label">Zene</string>
+    <string name="quick_settings_music_play">Lejátszás</string>
+    <string name="quick_settings_music_pause">Szünet</string>
+
+    <!-- NFC QS tile -->
+    <string name="quick_settings_nfc_label">NFC</string>
+    <string name="accessibility_quick_settings_nfc_off">NFC ki</string>
+    <string name="accessibility_quick_settings_nfc_on">NFC be</string>
+    <string name="accessibility_quick_settings_nfc_changed_off">NFC kikapcsolva</string>
+    <string name="accessibility_quick_settings_nfc_changed_on">NFC bekapcsolva</string>
+
+    <!-- Quick settings customization -->
+    <string name="qs_menu_item_columns">Soronkénti csempék száma</string>
+    <string name="qs_menu_item_columns_three">3</string>
+    <string name="qs_menu_item_columns_four">4</string>
+    <string name="qs_menu_item_columns_five">5</string>
+    <string name="qs_menu_item_reset">Visszaállítás</string>
+
+    <!-- Reboot/Recovery QS Tile -->
+    <string name="quick_settings_reboot_label">Újraindítás</string>
+    <string name="quick_settings_reboot_recovery_label">Helyreállítómód</string>
+
+    <!-- Screenshot QS tile -->
+    <string name="quick_settings_screenshot_label">Képernyőkép</string>
+
+    <!-- Sound QS Tile -->
+    <string name="quick_settings_sound_label">Hang</string>
+    <string name="quick_settings_sound_ring">Csengés</string>
+    <string name="quick_settings_sound_vibrate">Rezgés</string>
+    <string name="quick_settings_sound_dnd">Ne zavarj</string>
+
+    <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">Szinkronizálás</string>
+    <string name="accessibility_quick_settings_sync_off">Szinkronizálás ki</string>
+    <string name="accessibility_quick_settings_sync_on">Szinkronizálás be</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Szinkronizálás kikapcsolva</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Szinkronizálás bekapcsolva</string>
+
+    <!-- USB tether QS tile -->
+    <string name="quick_settings_usb_tether_label">USB internetmegosztás</string>
+    <string name="accessibility_quick_settings_usb_tether_off">USB internetmegosztás ki</string>
+    <string name="accessibility_quick_settings_usb_tether_on">USB internetmegosztás be</string>
+    <string name="accessibility_quick_settings_usb_tether_changed_off">USB megosztás kikapcsolva</string>
+    <string name="accessibility_quick_settings_usb_tether_changed_on">USB megosztás bekapcsolva</string>
 
 </resources>
