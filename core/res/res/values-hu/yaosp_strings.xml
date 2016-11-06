@@ -19,7 +19,7 @@
     <!-- Button to reboot the phone in reboot menu -->
     <string name="reboot_reboot">Újraindítás</string>
     <!-- Button to reboot the phone into recovery in reboot menu-->
-    <string name="reboot_recovery">Helyreállító mód</string>
+    <string name="reboot_recovery">Helyreállítómód</string>
     <!-- Button to reboot the phone into bootloader in reboot menu -->
     <string name="reboot_bootloader">Bootloader</string>
     <!-- Button to soft reboot the device in reboot menu -->
@@ -36,5 +36,16 @@
     <string name="global_action_screen_record">Képernyőfelvétel</string>
     <string name="global_action_search">Keresés</string>
     <string name="global_action_voicesearch">Hangkeresés</string>
+     
+    <!-- kill app long press back -->
+    <string name="app_killed_message"><xliff:g id="string">%s</xliff:g> bezárva</string>
+    <string name="no_app_killed_message">Nincs bezárandó alkalmazás</string>
+     
+     <!-- ADB over network notification -->
+    <string name="adb_net_active_notification_title">ADB hálózaton keresztül engedélyezve</string>
+    <!-- ADB over USB and network notification -->
+    <string name="adb_both_active_notification_title">ADB USB-n &amp; hálózaton keresztül engedélyezve</string>
+    <!-- ADB notification message-->
+    <string name="adb_active_generic_notification_message">Érintsd meg a hibakeresés letiltásához.</string>
 
 </resources>
