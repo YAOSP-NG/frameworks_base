@@ -51,7 +51,7 @@
     <string name="accessibility_quick_settings_caffeine_on">Koffein be</string>
 
     <!-- Expanded Desktop QS Tile -->
-    <string name="quick_settings_expanded_desktop">Kiterjesztett</string>
+    <string name="quick_settings_expanded_desktop">Kiterjesztett asztal</string>
     <string name="quick_settings_expanded_desktop_off">Normál</string>
 
     <!-- IME selector Tile -->
