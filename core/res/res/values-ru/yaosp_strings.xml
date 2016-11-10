@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2016 Yank555.lu's Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Reboot Dialog -->
+    <string name="global_action_reboot">Перезагрузка</string>
+    <!-- Button to reboot the phone in reboot menu -->
+    <string name="reboot_reboot">Перезагрузка</string>
+    <!-- Button to reboot the phone into recovery in reboot menu-->
+    <string name="reboot_recovery">Рекавери</string>
+    <!-- Button to reboot the phone into bootloader in reboot menu -->
+    <string name="reboot_bootloader">Загрузчик</string>
+    <!-- Button to soft reboot the device in reboot menu -->
+    <string name="reboot_soft">Перезагрузка интерфейса</string>
+    <!-- Reboot Confirmation Dialog. -->
+    <string name="reboot_confirm" product="tablet">Планшет будет перезагружен.</string>
+    <string name="reboot_confirm" product="default">Телефон будет перезагружен.</string>
+    <!-- Reboot Progress Dialog. This is shown if the user chooses to reboot the phone. -->
+    <string name="reboot_progress">Перезагрузка\u2026</string>
+
+    <!-- Global Actions -->
+    <string name="global_action_screenshot">Снимок экрана</string>
+    <string name="global_action_torch">Фонарик</string>
+    <string name="global_action_screen_record">Запись экрана</string>
+    <string name="global_action_search">Поиск</string>
+    <string name="global_action_voicesearch">Голосовой поиск</string>
+
+    <!-- kill app long press back -->
+    <string name="app_killed_message"><xliff:g id="string">%s</xliff:g> закрыто</string>
+    <string name="no_app_killed_message">Нечего закрывать</string>
+
+    <!-- ADB over network notification -->
+    <string name="adb_net_active_notification_title">Включена отладка по сети</string>
+    <!-- ADB over USB and network notification -->
+    <string name="adb_both_active_notification_title">Включена отладка по сети и USB</string>
+    <!-- ADB notification message-->
+    <string name="adb_active_generic_notification_message">Нажмите для выключения.</string>
+
+</resources>
