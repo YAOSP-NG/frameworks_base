@@ -61,4 +61,9 @@
   <java-symbol type="string" name="adb_both_active_notification_title" />
   <java-symbol type="string" name="adb_active_generic_notification_message" />
 
+  <!-- OMS7-N / Substratum -->
+  <!-- Notification icon/text dynamic tint -->
+  <java-symbol type="color" name="notification_text_default_color" />
+  <java-symbol type="color" name="sender_text_color" />
+
 </resources>
