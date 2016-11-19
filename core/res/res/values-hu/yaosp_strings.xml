@@ -21,7 +21,7 @@
     <!-- Button to reboot the phone into recovery in reboot menu-->
     <string name="reboot_recovery">Helyreállítómód</string>
     <!-- Button to reboot the phone into bootloader in reboot menu -->
-    <string name="reboot_bootloader">Bootloader</string>
+    <string name="reboot_bootloader">Rendszerbetöltő</string>
     <!-- Button to soft reboot the device in reboot menu -->
     <string name="reboot_soft">Lágy újraindítás</string>
     <!-- Reboot Confirmation Dialog. -->
