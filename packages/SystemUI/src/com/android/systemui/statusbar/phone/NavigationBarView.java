@@ -74,9 +74,7 @@ public class NavigationBarView extends LinearLayout {
     int mDisabledFlags = 0;
     int mNavigationIconHints = 0;
 
-    private Drawable mBackIcon, mBackLandIcon, mBackAltIcon, mBackAltLandIcon;
-    private Drawable mBackCarModeIcon, mBackLandCarModeIcon;
-    private Drawable mBackAltCarModeIcon, mBackAltLandCarModeIcon;
+    private BackButtonDrawable mBackIcon, mBackCarModeIcon;
     private Drawable mHomeDefaultIcon, mHomeCarModeIcon;
     private Drawable mRecentIcon;
     private Drawable mDockedIcon;
@@ -284,10 +282,8 @@ public class NavigationBarView extends LinearLayout {
     }
 
     private void updateCarModeIcons(Context ctx) {
-        mBackCarModeIcon = ctx.getDrawable(R.drawable.ic_sysbar_back_carmode);
-        mBackLandCarModeIcon = mBackCarModeIcon;
-        mBackAltCarModeIcon = ctx.getDrawable(R.drawable.ic_sysbar_back_ime_carmode);
-        mBackAltLandCarModeIcon = mBackAltCarModeIcon;
+        mBackCarModeIcon = new BackButtonDrawable(
+                ctx.getDrawable(R.drawable.ic_sysbar_back_carmode));
         mHomeCarModeIcon = ctx.getDrawable(R.drawable.ic_sysbar_home_carmode);
     }
 
@@ -297,10 +293,7 @@ public class NavigationBarView extends LinearLayout {
             mDockedIcon = ctx.getDrawable(R.drawable.ic_sysbar_docked);
         }
         if (oldConfig.densityDpi != newConfig.densityDpi) {
-            mBackIcon = ctx.getDrawable(R.drawable.ic_sysbar_back);
-            mBackLandIcon = mBackIcon;
-            mBackAltIcon = ctx.getDrawable(R.drawable.ic_sysbar_back_ime);
-            mBackAltLandIcon = mBackAltIcon;
+            mBackIcon = new BackButtonDrawable(ctx.getDrawable(R.drawable.ic_sysbar_back));
 
             mHomeDefaultIcon = ctx.getDrawable(R.drawable.ic_sysbar_home);
             mRecentIcon = ctx.getDrawable(R.drawable.ic_sysbar_recent);
@@ -328,16 +321,8 @@ public class NavigationBarView extends LinearLayout {
         setNavigationIconHints(hints, false);
     }
 
-    private Drawable getBackIconWithAlt(boolean carMode, boolean landscape) {
-        return landscape
-                ? carMode ? mBackAltLandCarModeIcon : mBackAltLandIcon
-                : carMode ? mBackAltCarModeIcon : mBackAltIcon;
-    }
-
-    private Drawable getBackIcon(boolean carMode, boolean landscape) {
-        return landscape
-                ? carMode ? mBackLandCarModeIcon : mBackLandIcon
-                : carMode ? mBackCarModeIcon : mBackIcon;
+    private BackButtonDrawable getBackIcon(boolean carMode) {
+        return carMode ? mBackCarModeIcon : mBackIcon;
     }
 
     public void setNavigationIconHints(int hints, boolean force) {
@@ -357,11 +342,12 @@ public class NavigationBarView extends LinearLayout {
         // We have to replace or restore the back and home button icons when exiting or entering
         // carmode, respectively. Recents are not available in CarMode in nav bar so change
         // to recent icon is not required.
-        Drawable backIcon = (backAlt)
-                ? getBackIconWithAlt(mCarMode, mVertical)
-                : getBackIcon(mCarMode, mVertical);
+        BackButtonDrawable backIcon = getBackIcon(mCarMode);
 
-        getBackButton().setImageDrawable(backIcon);
+        getBackButton().setImageDrawable(null);
+        getBackButton().setImageDrawable((Drawable) backIcon);
+        mBackIcon.setImeVisible(backAlt);
+        mBackCarModeIcon.setImeVisible(backAlt);
 
         updateRecentsIcon();
 
