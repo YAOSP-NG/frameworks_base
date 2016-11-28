@@ -106,4 +106,23 @@
     <string name="accessibility_quick_settings_usb_tether_changed_off">Интернет по USB был выключен</string>
     <string name="accessibility_quick_settings_usb_tether_changed_on">Интернет по USB был включен</string>
 
+    <!-- NavBar -->
+    <!-- Power Key -->
+    <string name="power">Питание</string>
+    <string name="accessibility_power">Кнопка питания</string>
+
+    <!-- Menu big Key -->
+    <string name="menu_big">Меню (большая)</string>
+    <string name="accessibility_menu_big">Кнопка меню (большая)</string>
+
+    <!-- Search Key -->
+    <string name="search">Поиск</string>
+    <string name="accessibility_search">Кнопка поиска</string>
+
+    <!-- Left/Right Cursor Keys -->
+    <string name="ime_left">Курсор влево</string>
+    <string name="accessibility_ime_left">Курсор влево</string>
+    <string name="ime_right">Курсор вправо</string>
+    <string name="accessibility_ime_right">Курсор вправо</string>
+
 </resources>
