@@ -101,6 +101,25 @@
     <string name="accessibility_quick_settings_usb_tether_off">USB internetmegosztás ki</string>
     <string name="accessibility_quick_settings_usb_tether_on">USB internetmegosztás be</string>
     <string name="accessibility_quick_settings_usb_tether_changed_off">USB megosztás kikapcsolva</string>
-    <string name="accessibility_quick_settings_usb_tether_changed_on">USB megosztás bekapcsolva</string>
+    <string name="accessibility_quick_settings_usb_tether_changed_on">USB megosztás bekapcsolva</string> 
+
+    <!-- NavBar -->
+    <!-- Power Key -->
+    <string name="power">Kikapcsolás</string>
+    <string name="accessibility_power">Kikapcsolás gomb</string>
+
+    <!-- Menu big Key -->
+    <string name="menu_big">Menü (nagy)</string>
+    <string name="accessibility_menu_big">Menü (nagy)</string>
+
+    <!-- Search Key -->
+    <string name="search">Keresés</string>
+    <string name="accessibility_search">Keresés</string>
+
+    <!-- Left/Right Cursor Keys -->
+    <string name="ime_left">Balra kurzor</string>
+    <string name="accessibility_ime_left">Balra kurzor gomb</string>
+    <string name="ime_right">Jobbra kurzor</string>
+    <string name="accessibility_ime_right">Jobbra kurzor gomb</string>
 
 </resources>
