@@ -103,4 +103,23 @@
     <string name="accessibility_quick_settings_usb_tether_changed_off">Modem USB a été désactivé</string>
     <string name="accessibility_quick_settings_usb_tether_changed_on">Modem USB a été activé</string>
 
+    <!-- NavBar -->
+    <!-- Power Key -->
+    <string name="power">Éteindre l\'écran</string>
+    <string name="accessibility_power">Éteindre l\'écran</string>
+
+    <!-- Menu big Key -->
+    <string name="menu_big">Menu</string>
+    <string name="accessibility_menu_big">Menu</string>
+
+    <!-- Search Key -->
+    <string name="search">Recherche</string>
+    <string name="accessibility_search">Recherche</string>
+
+    <!-- Left/Right Cursor Keys -->
+    <string name="ime_left">Flèche gauche</string>
+    <string name="accessibility_ime_left">Flèche gauche</string>
+    <string name="ime_right">Flèche droite</string>
+    <string name="accessibility_ime_right">Flèche droite</string>
+
 </resources>

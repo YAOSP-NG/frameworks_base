@@ -103,4 +103,23 @@
     <string name="accessibility_quick_settings_usb_tether_changed_off">USB-Tethering wurde ausgeschaltet</string>
     <string name="accessibility_quick_settings_usb_tether_changed_on">USB-Tethering wurde eingeschaltet</string>
 
+    <!-- NavBar -->
+    <!-- Power Key -->
+    <string name="power">Bildschirm ausschalten</string>
+    <string name="accessibility_power">Bildschirm ausschalten</string>
+
+    <!-- Menu big Key -->
+    <string name="menu_big">Menü</string>
+    <string name="accessibility_menu_big">Menü</string>
+
+    <!-- Search Key -->
+    <string name="search">Suche</string>
+    <string name="accessibility_search">Suche</string>
+
+    <!-- Left/Right Cursor Keys -->
+    <string name="ime_left">Pfeiltaste Links</string>
+    <string name="accessibility_ime_left">Pfeiltaste Links</string>
+    <string name="ime_right">Pfeiltaste Rechts</string>
+    <string name="accessibility_ime_right">Pfeiltaste Rechts</string>
+
 </resources>
