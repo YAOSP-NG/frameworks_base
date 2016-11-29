@@ -106,4 +106,23 @@
     <string name="accessibility_quick_settings_usb_tether_changed_off">USB tethering turned off</string>
     <string name="accessibility_quick_settings_usb_tether_changed_on">USB tethering turned on</string>
 
+    <!-- NavBar -->
+    <!-- Power Key -->
+    <string name="power">Power</string>
+    <string name="accessibility_power">Power button</string>
+
+    <!-- Menu big Key -->
+    <string name="menu_big">Menu Big</string>
+    <string name="accessibility_menu_big">Menu Big button</string>
+
+    <!-- Search Key -->
+    <string name="search">Search</string>
+    <string name="accessibility_search">Search button</string>
+
+    <!-- Left/Right Cursor Keys -->
+    <string name="ime_left">IME Left</string>
+    <string name="accessibility_ime_left">IME Left button</string>
+    <string name="ime_right">IME Right</string>
+    <string name="accessibility_ime_right">IME Right button</string>
+
 </resources>

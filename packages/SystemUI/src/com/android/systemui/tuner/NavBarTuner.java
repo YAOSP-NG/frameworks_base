@@ -56,14 +56,19 @@ import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.BUT
 import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.CLIPBOARD;
 import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.GRAVITY_SEPARATOR;
 import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.HOME;
+import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.IME_LEFT;
+import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.IME_RIGHT;
 import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.KEY;
 import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.KEY_CODE_END;
 import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.KEY_CODE_START;
 import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.KEY_IMAGE_DELIM;
+import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.MENU_BIG;
 import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.MENU_IME;
 import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.NAVSPACE;
 import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.NAV_BAR_VIEWS;
+import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.POWER;
 import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.RECENT;
+import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.SEARCH;
 import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.SIZE_MOD_END;
 import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.SIZE_MOD_START;
 import static com.android.systemui.statusbar.phone.NavigationBarInflaterView.extractButton;
@@ -214,8 +219,18 @@ public class NavBarTuner extends Fragment implements TunerService.Tunable {
             return context.getString(R.string.space);
         } else if (button.startsWith(MENU_IME)) {
             return context.getString(R.string.menu_ime);
+        } else if (button.startsWith(MENU_BIG)) {
+            return context.getString(R.string.menu_big);
         } else if (button.startsWith(CLIPBOARD)) {
             return context.getString(R.string.clipboard);
+        } else if (button.startsWith(POWER)) {
+            return context.getString(R.string.power);
+        } else if (button.startsWith(IME_LEFT)) {
+            return context.getString(R.string.ime_left);
+        } else if (button.startsWith(IME_RIGHT)) {
+            return context.getString(R.string.ime_right);
+        } else if (button.startsWith(SEARCH)) {
+            return context.getString(R.string.search);
         } else if (button.startsWith(KEY)) {
             return context.getString(R.string.keycode);
         }
@@ -430,7 +445,18 @@ public class NavBarTuner extends Fragment implements TunerService.Tunable {
 
         private void showAddDialog(final Context context) {
             final String[] options = new String[] {
-                    BACK, HOME, RECENT, MENU_IME, NAVSPACE, CLIPBOARD, KEY,
+                    BACK, 
+                    HOME,
+                    RECENT,
+                    POWER,
+                    MENU_BIG,
+                    MENU_IME,
+                    IME_LEFT,
+                    IME_RIGHT,
+                    SEARCH,
+                    NAVSPACE,
+                    CLIPBOARD,
+                    KEY,
             };
             final CharSequence[] labels = new CharSequence[options.length];
             for (int i = 0; i < options.length; i++) {
