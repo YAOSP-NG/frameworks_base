@@ -32,7 +32,6 @@ import com.android.systemui.Interpolators;
 
 public class SettingsButton extends AlphaOptimizedImageButton {
 
-    private static final long LONG_PRESS_LENGTH = 1000;
     private static final long ACCEL_LENGTH = 750;
     private static final long FULL_SPEED_LENGTH = 375;
     private static final long RUN_DURATION = 350;
@@ -58,35 +57,13 @@ public class SettingsButton extends AlphaOptimizedImageButton {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getActionMasked()) {
-            case MotionEvent.ACTION_DOWN:
-                postDelayed(mLongPressCallback, LONG_PRESS_LENGTH);
-                break;
             case MotionEvent.ACTION_UP:
                 if (mUpToSpeed) {
                     startExitAnimation();
-                } else {
-                    cancelLongClick();
-                }
-                break;
-            case MotionEvent.ACTION_CANCEL:
-                cancelLongClick();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                float x = event.getX();
-                float y = event.getY();
-                if ((x < -mSlop) || (y < -mSlop) || (x > getWidth() + mSlop)
-                        || (y > getHeight() + mSlop)) {
-                    cancelLongClick();
                 }
                 break;
         }
         return super.onTouchEvent(event);
-    }
-
-    private void cancelLongClick() {
-        cancelAnimation();
-        mUpToSpeed = false;
-        removeCallbacks(mLongPressCallback);
     }
 
     private void cancelAnimation() {
@@ -117,7 +94,6 @@ public class SettingsButton extends AlphaOptimizedImageButton {
                     public void onAnimationEnd(Animator animation) {
                         setAlpha(1f);
                         setTranslationX(0);
-                        cancelLongClick();
                     }
 
                     @Override
@@ -164,11 +140,4 @@ public class SettingsButton extends AlphaOptimizedImageButton {
         mAnimator.setRepeatCount(Animation.INFINITE);
         mAnimator.start();
     }
-
-    private final Runnable mLongPressCallback = new Runnable() {
-        @Override
-        public void run() {
-            startAccelSpin();
-        }
-    };
 }
