@@ -19,6 +19,7 @@ package com.android.systemui.doze;
 import android.app.ActivityManager;
 import android.app.UiModeManager;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -46,6 +47,7 @@ import android.view.Display;
 import com.android.internal.hardware.AmbientDisplayConfiguration;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.MetricsProto.MetricsEvent;
+import com.android.systemui.R;
 import com.android.systemui.SystemUIApplication;
 import com.android.systemui.statusbar.phone.DozeParameters;
 
@@ -75,6 +77,8 @@ public class DozeService extends DreamService {
     private SensorManager mSensorManager;
     private TriggerSensor[] mSensors;
     private TriggerSensor mPickupSensor;
+    private TriggerSensor mSigMotionSensor;
+    private TriggerSensor mDoubleTapSensor;
     private PowerManager mPowerManager;
     private PowerManager.WakeLock mWakeLock;
     private UiModeManager mUiModeManager;
@@ -87,6 +91,14 @@ public class DozeService extends DreamService {
     private long mNotificationPulseTime;
 
     private AmbientDisplayConfiguration mConfig;
+
+    private boolean mDozeTriggerPickup;
+    private boolean mDozeTriggerSigmotion;
+    private boolean mDozeTriggerDoubleTap = true;
+    private boolean mDozeTriggerNotification;
+    private boolean mDozeSchedule;
+
+    private PulseSchedule mSchedule = null;
 
     public DozeService() {
         if (DEBUG) Log.d(mTag, "new DozeService()");
@@ -130,7 +142,7 @@ public class DozeService extends DreamService {
         mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         mConfig = new AmbientDisplayConfiguration(mContext);
         mSensors = new TriggerSensor[] {
-                new TriggerSensor(
+                mSigMotionSensor = new TriggerSensor(
                         mSensorManager.getDefaultSensor(Sensor.TYPE_SIGNIFICANT_MOTION),
                         null /* setting */,
                         mDozeParameters.getPulseOnSigMotion(),
@@ -141,7 +153,7 @@ public class DozeService extends DreamService {
                         Settings.Secure.DOZE_PULSE_ON_PICK_UP,
                         mConfig.pulseOnPickupAvailable(), mDozeParameters.getVibrateOnPickup(),
                         DozeLog.PULSE_REASON_SENSOR_PICKUP),
-                new TriggerSensor(
+                mDoubleTapSensor = new TriggerSensor(
                         findSensorWithType(mConfig.doubleTapSensorType()),
                         Settings.Secure.DOZE_PULSE_ON_DOUBLE_TAP, true,
                         mDozeParameters.getVibrateOnPickup(),
@@ -182,6 +194,10 @@ public class DozeService extends DreamService {
             finishForCarMode();
             return;
         }
+
+        // Settings observer
+        SettingsObserver observer = new SettingsObserver(mHandler);
+        observer.observe();
 
         mDreaming = true;
         listenForPulseSignals(true);
@@ -314,10 +330,17 @@ public class DozeService extends DreamService {
     private void listenForPulseSignals(boolean listen) {
         if (DEBUG) Log.d(mTag, "listenForPulseSignals: " + listen);
         for (TriggerSensor s : mSensors) {
+            if ((s == mPickupSensor && !mDozeTriggerPickup) ||
+                    (s == mSigMotionSensor && !mDozeTriggerSigmotion) ||
+                    (s == mDoubleTapSensor && !mDozeTriggerDoubleTap)    ) {
+                continue;
+            }
             s.setListening(listen);
         }
         listenForBroadcasts(listen);
-        listenForNotifications(listen);
+        if (mDozeTriggerNotification) {
+            listenForNotifications(listen);
+        }
     }
 
     private void reregisterAllSensors() {
@@ -453,6 +476,70 @@ public class DozeService extends DreamService {
             }
         }
         return null;
+    }
+
+    /**
+     * Settingsobserver to take care of the user settings.
+     */
+    private class SettingsObserver extends ContentObserver {
+        SettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOZE_TRIGGER_PICKUP),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOZE_TRIGGER_SIGMOTION),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOZE_TRIGGER_NOTIFICATION),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOZE_SCHEDULE),
+                    false, this, UserHandle.USER_ALL);
+            update();
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            update();
+        }
+
+        public void update() {
+            ContentResolver resolver = mContext.getContentResolver();
+
+            // Get preferences
+            mDozeTriggerPickup = (Settings.System.getIntForUser(resolver,
+                    Settings.System.DOZE_TRIGGER_PICKUP,
+                    mContext.getResources().getBoolean(
+                    R.bool.doze_pulse_on_pick_up) ? 1 : 0,
+                    UserHandle.USER_CURRENT) == 1);
+            mDozeTriggerSigmotion = (Settings.System.getIntForUser(resolver,
+                    Settings.System.DOZE_TRIGGER_SIGMOTION,
+                    mContext.getResources().getBoolean(
+                    R.bool.doze_pulse_on_significant_motion) ? 1 : 0,
+                    UserHandle.USER_CURRENT) == 1);
+            mDozeTriggerNotification = (Settings.System.getIntForUser(resolver,
+                    Settings.System.DOZE_TRIGGER_NOTIFICATION, 1,
+                    UserHandle.USER_CURRENT) == 1);
+            mDozeSchedule = (Settings.System.getIntForUser(resolver,
+                    Settings.System.DOZE_SCHEDULE, 1,
+                    UserHandle.USER_CURRENT) == 1);
+
+            updateDozeSchedule();
+        }
+
+        private void updateDozeSchedule() {
+            if (mDozeSchedule) {
+                mSchedule = mDozeParameters.getPulseSchedule();
+            } else {
+                mSchedule = mDozeParameters.getAlternatePulseSchedule();
+            }
+        }
     }
 
     private class TriggerSensor extends TriggerEventListener {
