@@ -131,9 +131,4 @@
             android:title="@string/other"
             android:fragment="com.android.systemui.tuner.OtherPrefs" />
 
-    <!-- Warning, this goes last. -->
-    <Preference
-        android:summary="@string/tuner_persistent_warning"
-        android:selectable="false" />
-
 </PreferenceScreen>
