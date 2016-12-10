@@ -41,7 +41,6 @@ import android.widget.TextView;
 
 import com.android.systemui.DemoMode;
 import com.android.systemui.R;
-import com.android.systemui.statusbar.phone.StatusBarIconController;
 import com.android.systemui.tuner.TunerService;
 import com.android.systemui.tuner.TunerService.Tunable;
 
@@ -56,6 +55,7 @@ import java.util.TimeZone;
 public class Clock extends TextView implements DemoMode, Tunable {
 
     public static final String CLOCK_SECONDS = "clock_seconds";
+    public static final String CLOCK_SHOW = "clock_show";
 
     private boolean mAttached;
     private Calendar mCalendar;
@@ -70,6 +70,7 @@ public class Clock extends TextView implements DemoMode, Tunable {
 
     private final int mAmPmStyle;
     private boolean mShowSeconds;
+    private boolean mShowClock;
     private Handler mSecondsHandler;
 
     public Clock(Context context) {
@@ -109,8 +110,7 @@ public class Clock extends TextView implements DemoMode, Tunable {
 
             getContext().registerReceiverAsUser(mIntentReceiver, UserHandle.ALL, filter,
                     null, getHandler());
-            TunerService.get(getContext()).addTunable(this, CLOCK_SECONDS,
-                    StatusBarIconController.ICON_BLACKLIST);
+            TunerService.get(getContext()).addTunable(this, CLOCK_SECONDS, CLOCK_SHOW);
         }
 
         // NOTE: It's safe to do these after registering the receiver since the receiver always runs
@@ -167,9 +167,9 @@ public class Clock extends TextView implements DemoMode, Tunable {
         if (CLOCK_SECONDS.equals(key)) {
             mShowSeconds = newValue != null && Integer.parseInt(newValue) != 0;
             updateShowSeconds();
-        } else if (StatusBarIconController.ICON_BLACKLIST.equals(key)) {
-            ArraySet<String> list = StatusBarIconController.getIconBlacklist(newValue);
-            setVisibility(list.contains("clock") ? View.GONE : View.VISIBLE);
+        } else if (CLOCK_SHOW.equals(key)) {
+            mShowClock = newValue == null || Integer.parseInt(newValue) == 1;
+            updateShowClock();
         }
     }
 
@@ -194,6 +194,10 @@ public class Clock extends TextView implements DemoMode, Tunable {
                 updateClock();
             }
         }
+    }
+
+    private void updateShowClock() {
+        setVisibility(mShowClock ? View.VISIBLE : View.GONE);
     }
 
     private final CharSequence getSmallTime() {
