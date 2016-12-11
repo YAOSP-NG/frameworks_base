@@ -2792,10 +2792,10 @@ public final class Settings {
         public static final String DOZE_TRIGGER_NOTIFICATION = "doze_trigger_notification";
 
         /**
-         * Follow pre-configured doze pulse repeat schedule
+         * Use doubletap as doze pulse triggers
          * @hide
          */
-        public static final String DOZE_SCHEDULE = "doze_schedule";
+        public static final String DOZE_TRIGGER_DOUBLETAP = "doze_trigger_doubletap";
 
         /**
          * Doze pulse screen brightness level

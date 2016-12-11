@@ -94,11 +94,8 @@ public class DozeService extends DreamService {
 
     private boolean mDozeTriggerPickup;
     private boolean mDozeTriggerSigmotion;
-    private boolean mDozeTriggerDoubleTap = true;
+    private boolean mDozeTriggerDoubleTap;
     private boolean mDozeTriggerNotification;
-    private boolean mDozeSchedule;
-
-    private PulseSchedule mSchedule = null;
 
     public DozeService() {
         if (DEBUG) Log.d(mTag, "new DozeService()");
@@ -498,7 +495,7 @@ public class DozeService extends DreamService {
                     Settings.System.DOZE_TRIGGER_NOTIFICATION),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOZE_SCHEDULE),
+                    Settings.System.DOZE_TRIGGER_DOUBLETAP),
                     false, this, UserHandle.USER_ALL);
             update();
         }
@@ -514,31 +511,17 @@ public class DozeService extends DreamService {
 
             // Get preferences
             mDozeTriggerPickup = (Settings.System.getIntForUser(resolver,
-                    Settings.System.DOZE_TRIGGER_PICKUP,
-                    mContext.getResources().getBoolean(
-                    R.bool.doze_pulse_on_pick_up) ? 1 : 0,
+                    Settings.System.DOZE_TRIGGER_PICKUP, 1,
                     UserHandle.USER_CURRENT) == 1);
             mDozeTriggerSigmotion = (Settings.System.getIntForUser(resolver,
-                    Settings.System.DOZE_TRIGGER_SIGMOTION,
-                    mContext.getResources().getBoolean(
-                    R.bool.doze_pulse_on_significant_motion) ? 1 : 0,
+                    Settings.System.DOZE_TRIGGER_SIGMOTION, 1,
                     UserHandle.USER_CURRENT) == 1);
             mDozeTriggerNotification = (Settings.System.getIntForUser(resolver,
                     Settings.System.DOZE_TRIGGER_NOTIFICATION, 1,
                     UserHandle.USER_CURRENT) == 1);
-            mDozeSchedule = (Settings.System.getIntForUser(resolver,
-                    Settings.System.DOZE_SCHEDULE, 1,
+            mDozeTriggerDoubleTap = (Settings.System.getIntForUser(resolver,
+                    Settings.System.DOZE_TRIGGER_DOUBLETAP, 1,
                     UserHandle.USER_CURRENT) == 1);
-
-            updateDozeSchedule();
-        }
-
-        private void updateDozeSchedule() {
-            if (mDozeSchedule) {
-                mSchedule = mDozeParameters.getPulseSchedule();
-            } else {
-                mSchedule = mDozeParameters.getAlternatePulseSchedule();
-            }
         }
     }
 
