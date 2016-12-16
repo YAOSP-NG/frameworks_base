@@ -67,4 +67,7 @@
   <!-- Proximity check timeout on screen on -->
   <java-symbol type="integer" name="config_proximityCheckTimeout" />
 
+  <!-- Vendor warning -->
+  <java-symbol type="string" name="system_error_vendorprint" />
+
 </resources>

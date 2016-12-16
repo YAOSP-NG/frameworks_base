@@ -51,4 +51,7 @@
     <!-- ADB notification message-->
     <string name="adb_active_generic_notification_message">Touchez pour désactiver le débogage.</string>
 
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">Mauvaise image \'vendor\' detectée. L\'image \'vendor\' requise pour cette ROM est <xliff:g id="string">%s</xliff:g>. Veuillez flasher l\'image \'vendor\' correspondante afin de supprimer ce message et garantir que le système fonctionnera correctement.</string>
+
 </resources>

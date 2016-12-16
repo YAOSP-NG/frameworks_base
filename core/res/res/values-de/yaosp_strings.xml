@@ -51,4 +51,7 @@
     <!-- ADB notification message-->
     <string name="adb_active_generic_notification_message">Berühren, um Debugging zu deaktivieren.</string>
 
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">Falsche vendor Image identifiziert. Das erforderliche Vendor-Image für dieses ROM ist <xliff:g id="string">%s</xliff:g>. Bitte die entsprechende Vendor-Image flashen um diese Meldung zu entfernen und sicherzustellen, daß das System zuverlässig arbeiten wird.</string>
+
 </resources>
