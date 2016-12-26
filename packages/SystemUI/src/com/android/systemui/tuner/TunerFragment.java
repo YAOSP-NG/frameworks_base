@@ -19,14 +19,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.database.ContentObserver;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.Settings;
-import android.provider.Settings.System;
 import android.support.v14.preference.PreferenceFragment;
-import android.support.v14.preference.SwitchPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 import android.view.Menu;
@@ -40,8 +34,6 @@ import com.android.systemui.R;
 public class TunerFragment extends PreferenceFragment {
 
     private static final String TAG = "TunerFragment";
-
-    private static final String KEY_BATTERY_PCT = "battery_pct";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
