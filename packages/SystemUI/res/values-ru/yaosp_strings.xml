@@ -125,4 +125,23 @@
     <string name="ime_right">Курсор вправо</string>
     <string name="accessibility_ime_right">Курсор вправо</string>
 
+    <!-- Settings - Battery Options -->
+    <string name="battery_icon_options_title">Значок батареи</string>
+
+    <!-- Settings - Battery Style -->
+    <string name="status_bar_battery_style_title">Вид значка</string>
+    <string name="status_bar_battery_style_circle">Круг</string>
+    <string name="status_bar_battery_style_dotted_circle">Круг из точек</string>
+    <string name="status_bar_battery_style_text">Текст</string>
+    <string name="status_bar_battery_style_hidden">Скрыть</string>
+    <string name="status_bar_battery_style_icon_portrait">Батарея (портрет)</string>
+    <string name="status_bar_battery_style_icon_landscape">Батарея (ландшафт)</string>
+
+    <!-- Settings - Battery percentage -->
+    <string name="status_bar_battery_percentage_title">Показывать процент заряда</string>
+    <string name="status_bar_battery_percentage_dialog_title">Процент заряда</string>
+    <string name="status_bar_battery_percentage_default">Скрыто (по умолчанию)</string>
+    <string name="status_bar_battery_percentage_text_inside">Внутри значка</string>
+    <string name="status_bar_battery_percentage_text_next">Рядом со значком</string>
+
 </resources>
