@@ -122,4 +122,23 @@
     <string name="ime_right">Pfeiltaste Rechts</string>
     <string name="accessibility_ime_right">Pfeiltaste Rechts</string>
 
+    <!-- Settings - Battery Options -->
+    <string name="battery_icon_options_title">Batterie Symbol</string>
+
+    <!-- Settings - Battery Style -->
+    <string name="status_bar_battery_style_title">Batterie Status Style</string>
+    <string name="status_bar_battery_style_circle">Kreis</string>
+    <string name="status_bar_battery_style_dotted_circle">Gepunkteter Kreis</string>
+    <string name="status_bar_battery_style_text">Text</string>
+    <string name="status_bar_battery_style_hidden">Versteckt</string>
+    <string name="status_bar_battery_style_icon_portrait">Symbol Portrait</string>
+    <string name="status_bar_battery_style_icon_landscape">Symbol Landscape</string>
+
+    <!-- Settings - Battery percentage -->
+    <string name="status_bar_battery_percentage_title">Zeige Batterie Prozentanzeige</string>
+    <string name="status_bar_battery_percentage_dialog_title">Batterie Prozentanzeige</string>
+    <string name="status_bar_battery_percentage_default">Versteckt (Standard)</string>
+    <string name="status_bar_battery_percentage_text_inside">Im Batterie Icon</string>
+    <string name="status_bar_battery_percentage_text_next">Neben Batterie Icon</string>
+
 </resources>
