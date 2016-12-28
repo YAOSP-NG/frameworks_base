@@ -131,11 +131,11 @@
     <!-- Settings - Battery Style -->
     <string name="status_bar_battery_style_title">Akkumulátor állapotjelző stílusa</string>
     <string name="status_bar_battery_style_circle">Kör</string>
-    <string name="status_bar_battery_style_dotted_circle">Pontozott kör</string>
+    <string name="status_bar_battery_style_dotted_circle">Szaggatott kör</string>
     <string name="status_bar_battery_style_text">Szöveg</string>
     <string name="status_bar_battery_style_hidden">Rejtett</string>
-    <string name="status_bar_battery_style_icon_portrait">Álló ikon</string>
-    <string name="status_bar_battery_style_icon_landscape">Fekvő ikon</string>
+    <string name="status_bar_battery_style_icon_portrait">Álló</string>
+    <string name="status_bar_battery_style_icon_landscape">Fekvő</string>
 
     <!-- Settings - Battery percentage -->
     <string name="status_bar_battery_percentage_title">Akkumulátor százalék megjelenítése</string>
