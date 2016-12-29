@@ -5131,6 +5131,14 @@ public final class Settings {
         public static final String CLOCK_DATE_POSITION = "clock_date_position";
 
         /**
+         * Voice assist on lockscreen
+         * 0 - Force phone shortcut even if voice assis is available
+         * 1 - Show voice assist if available (default)
+         * @hide
+         */
+        public static final String KEYGUARD_VOICE_ASSIST = "keyguard_voice_assist";
+
+        /**
          * @deprecated Use {@link android.provider.Settings.Global#DATA_ROAMING} instead
          */
         @Deprecated
@@ -6955,7 +6963,8 @@ public final class Settings {
             DOZE_PULSE_ON_DOUBLE_TAP,
             LOCKSCREEN_QUICK_UNLOCK_CONTROL,
             STATUS_BAR_BATTERY_STYLE,
-            STATUS_BAR_SHOW_BATTERY_PERCENT
+            STATUS_BAR_SHOW_BATTERY_PERCENT,
+            KEYGUARD_VOICE_ASSIST
         };
 
         /**
