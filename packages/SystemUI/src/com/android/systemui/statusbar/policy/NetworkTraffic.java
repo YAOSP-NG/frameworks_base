@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.database.ContentObserver;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.TrafficStats;
@@ -36,9 +38,12 @@ public class NetworkTraffic extends TextView {
     public static final int MASK_DOWN = 0x00000002;      // Second least valuable bit
     public static final int MASK_UNIT = 0x00000004;      // Third least valuable bit
     public static final int MASK_PERIOD = 0xFFFF0000;    // Most valuable 16 bits
+    public static final int DEFAULT_ICON_TINT = Color.WHITE;
 
     private static final int KILOBIT = 1000;
     private static final int KILOBYTE = 1024;
+
+    private int mIconTint = DEFAULT_ICON_TINT;
 
     private static DecimalFormat decimalFormat = new DecimalFormat("##0.#");
     static {
@@ -47,6 +52,7 @@ public class NetworkTraffic extends TextView {
     }
 
     private int mState = 0;
+    private int mStateAnimation = 0;
     private boolean mAttached;
     private long totalRxBytes;
     private long totalTxBytes;
@@ -58,6 +64,7 @@ public class NetworkTraffic extends TextView {
     private int GB = MB * KB;
     private boolean mAutoHide;
     private int mAutoHideThreshold;
+    private boolean mAnimateArrows;
 
     private Handler mTrafficHandler = new Handler() {
         @Override
@@ -81,6 +88,17 @@ public class NetworkTraffic extends TextView {
             long newTotalTxBytes = TrafficStats.getTotalTxBytes();
             long rxData = newTotalRxBytes - totalRxBytes;
             long txData = newTotalTxBytes - totalTxBytes;
+
+            if (mAnimateArrows) {
+                int stateAnimation = mStateAnimation;
+
+                mStateAnimation = (txData == 0 ? 0 : MASK_UP)
+                        + (rxData == 0 ? 0 : MASK_DOWN);
+
+                if (stateAnimation != mStateAnimation) {
+                    updateTrafficDrawable();
+                }
+            }
 
             if (shouldHide(rxData, txData, timeDelta)) {
                 setText("");
@@ -179,6 +197,9 @@ public class NetworkTraffic extends TextView {
             resolver.registerContentObserver(Settings.System
                     .getUriFor(Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD), false,
                     this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System
+                    .getUriFor(Settings.System.NETWORK_TRAFFIC_ANIMATE_ARROWS), false,
+                    this, UserHandle.USER_ALL);
         }
 
         /*
@@ -267,6 +288,10 @@ public class NetworkTraffic extends TextView {
                 Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, 10,
                 UserHandle.USER_CURRENT);
 
+        mAnimateArrows = Settings.System.getIntForUser(resolver,
+                Settings.System.NETWORK_TRAFFIC_ANIMATE_ARROWS, 0,
+                UserHandle.USER_CURRENT) == 1;
+
         mState = Settings.System.getInt(resolver, Settings.System.NETWORK_TRAFFIC_STATE, 0);
         if (isSet(mState, MASK_UNIT)) {
             KB = KILOBYTE;
@@ -309,16 +334,32 @@ public class NetworkTraffic extends TextView {
     }
 
     private void updateTrafficDrawable() {
+
         int intTrafficDrawable;
-        if (isSet(mState, MASK_UP + MASK_DOWN)) {
+        int state;
+        Drawable trafficIcon = null;
+
+        state = (mAnimateArrows && isSet(mState, MASK_UP + MASK_DOWN)) ? mStateAnimation : mState;
+
+        if (isSet(state, MASK_UP + MASK_DOWN)) {
             intTrafficDrawable = R.drawable.stat_sys_network_traffic_updown;
-        } else if (isSet(mState, MASK_UP)) {
+        } else if (isSet(state, MASK_UP)) {
             intTrafficDrawable = R.drawable.stat_sys_network_traffic_up;
-        } else if (isSet(mState, MASK_DOWN)) {
+        } else if (isSet(state, MASK_DOWN)) {
             intTrafficDrawable = R.drawable.stat_sys_network_traffic_down;
         } else {
-            intTrafficDrawable = 0;
+            intTrafficDrawable = mAnimateArrows ? R.drawable.stat_sys_network_traffic_none : 0;
         }
-        setCompoundDrawablesWithIntrinsicBounds(0, 0, intTrafficDrawable, 0);
+        if (intTrafficDrawable != 0) {
+            trafficIcon = getResources().getDrawable(intTrafficDrawable);
+            trafficIcon.setTint(mIconTint);
+        }
+        setCompoundDrawablesWithIntrinsicBounds(null, null, trafficIcon, null);
+    }
+
+    public void updateIconTint(int iconTint) {
+        mIconTint = iconTint;
+        setTextColor(mIconTint);
+        updateTrafficDrawable();
     }
 }

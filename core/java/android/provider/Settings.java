@@ -3854,6 +3854,12 @@ public final class Settings {
         public static final String NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD = "network_traffic_autohide_threshold";
 
         /**
+         * Whether or not to animate the network traffic indicator when there is activity
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_ANIMATE_ARROWS = "network_traffic_animate_arrows";
+
+        /**
          * Whether the proximity sensor will adjust call to speaker
          * @hide
          */
