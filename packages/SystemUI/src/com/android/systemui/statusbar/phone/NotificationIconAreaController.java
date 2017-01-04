@@ -208,4 +208,10 @@ public class NotificationIconAreaController {
             }
         }
     }
+
+    public void setClockAndDateStatus(int width, int mode, boolean enabled) {
+        if (mNotificationIcons != null) {
+            mNotificationIcons.setClockAndDateStatus(width, mode, enabled);
+        }
+    }
 }
