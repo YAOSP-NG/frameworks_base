@@ -79,6 +79,7 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
 
     private BatteryMeterView mBatteryMeterView;
     private BatteryMeterView mBatteryMeterViewKeyguard;
+    private TextView mBatteryLevelText;
     private Clock mRightClock;
     private Clock mCenterClock;
     private Clock mLeftClock;
@@ -145,7 +146,7 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         mBatteryMeterView = (BatteryMeterView) statusBar.findViewById(R.id.battery);
         mBatteryMeterViewKeyguard = (BatteryMeterView) keyguardStatusBar.findViewById(R.id.battery);
         scaleBatteryMeterViews(context);
-
+        mBatteryLevelText = (TextView) statusBar.findViewById(R.id.battery_level_text);
         mRightClock = (Clock) statusBar.findViewById(R.id.right_clock);
         mCenterClockLayout = (LinearLayout)statusBar.findViewById(R.id.center_clock_layout);
         mCenterClock = (Clock) statusBar.findViewById(R.id.center_clock);
@@ -584,6 +585,7 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         mSignalCluster.setIconTint(mIconTint, mDarkIntensity, mTintArea);
         mBatteryMeterView.setDarkIntensity(
                 isInArea(mTintArea, mBatteryMeterView) ? mDarkIntensity : 0);
+        mBatteryLevelText.setTextColor(mIconTint);
         mNetworkTraffic.updateIconTint(mIconTint);
         applyClockColorTint();
     }
