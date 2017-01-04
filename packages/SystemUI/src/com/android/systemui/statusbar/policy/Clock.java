@@ -63,17 +63,22 @@ public class Clock extends TextView implements DemoMode, Tunable {
     private SimpleDateFormat mContentDescriptionFormat;
     private Locale mLocale;
 
-    public static final String CLOCK_SHOW          = "clock_show";
-    public static final String CLOCK_SECONDS       = "clock_seconds";
-    public static final String CLOCK_AM_PM_STYLE   = "clock_am_pm_style";
-    public static final String CLOCK_STYLE         = "clock_style";
-    public static final String CLOCK_DATE_SHOW     = "clock_date_SHOW";
-    public static final String CLOCK_DATE_STYLE    = "clock_date_style";
-    public static final String CLOCK_DATE_FORMAT   = "clock_date_format";
-    public static final String CLOCK_DATE_POSITION = "clock_date_position";
+    public static final String CLOCK_SHOW           = "clock_show";
+    public static final String CLOCK_SECONDS        = "clock_seconds";
+    public static final String CLOCK_COLOR_OVERRIDE = "clock_color_override";
+    public static final String CLOCK_COLOR          = "clock_color";
+    public static final String CLOCK_AM_PM_STYLE    = "clock_am_pm_style";
+    public static final String CLOCK_STYLE          = "clock_style";
+    public static final String CLOCK_DATE_SHOW      = "clock_date_SHOW";
+    public static final String CLOCK_DATE_STYLE     = "clock_date_style";
+    public static final String CLOCK_DATE_FORMAT    = "clock_date_format";
+    public static final String CLOCK_DATE_POSITION  = "clock_date_position";
 
     public static final int CLOCK_SHOW_DISABLED            = 0;
     public static final int CLOCK_SHOW_ENABLED             = 1;
+
+    public static final int CLOCK_COLOR_OVERRIDE_DISABLED  = 0;
+    public static final int CLOCK_COLOR_OVERRIDE_ENABLED   = 1;
 
     public static final int CLOCK_SECONDS_DISABLED         = 0;
     public static final int CLOCK_SECONDS_ENABLED          = 1;
