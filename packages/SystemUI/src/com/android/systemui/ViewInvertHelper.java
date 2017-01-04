@@ -20,9 +20,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -37,6 +40,7 @@ public class ViewInvertHelper {
     private final ColorMatrix mGrayscaleMatrix = new ColorMatrix();
     private final long mFadeDuration;
     private final ArrayList<View> mTargets = new ArrayList<>();
+    private final Context mContext;
 
     public ViewInvertHelper(View v, long fadeDuration) {
         this(v.getContext(), fadeDuration);
@@ -44,6 +48,7 @@ public class ViewInvertHelper {
     }
     public ViewInvertHelper(Context context, long fadeDuration) {
         mFadeDuration = fadeDuration;
+        mContext = context;
     }
 
     private static ArrayList<View> constructArray(View target) {
@@ -90,7 +95,7 @@ public class ViewInvertHelper {
     }
 
     public void update(boolean invert) {
-        if (invert) {
+        if (invert && isInvertEnabled()) {
             updateInvertPaint(1f);
             for (int i = 0; i < mTargets.size(); i++) {
                 mTargets.get(i).setLayerType(View.LAYER_TYPE_HARDWARE, mDarkPaint);
@@ -122,5 +127,10 @@ public class ViewInvertHelper {
         } else {
             update(invert);
         }
+    }
+
+    private boolean isInvertEnabled() {
+        return Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                Settings.Secure.DOZE_NOTIFICATION_INVERT_ENABLED, 1, UserHandle.USER_CURRENT) == 1;
     }
 }
