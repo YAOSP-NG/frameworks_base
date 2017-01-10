@@ -193,9 +193,7 @@ public class DozeService extends DreamService {
             return;
         }
 
-        // Settings observer
-        SettingsObserver observer = new SettingsObserver(mHandler);
-        observer.observe();
+        updateDozeSettings();
 
         mDreaming = true;
         listenForPulseSignals(mDozeEnabled);
@@ -342,6 +340,26 @@ public class DozeService extends DreamService {
         }
     }
 
+    private void updateDozeSettings() {
+        ContentResolver resolver = mContext.getContentResolver();
+
+        // Get preferences
+        mDozeEnabled = (Settings.Secure.getInt(resolver,
+                Settings.Secure.DOZE_ENABLED, 1) == 1);
+        mDozeTriggerPickup = (Settings.System.getIntForUser(resolver,
+                Settings.System.DOZE_TRIGGER_PICKUP, 1,
+                UserHandle.USER_CURRENT) == 1);
+        mDozeTriggerSigmotion = (Settings.System.getIntForUser(resolver,
+                Settings.System.DOZE_TRIGGER_SIGMOTION, 1,
+                UserHandle.USER_CURRENT) == 1);
+        mDozeTriggerNotification = (Settings.System.getIntForUser(resolver,
+                Settings.System.DOZE_TRIGGER_NOTIFICATION, 1,
+                UserHandle.USER_CURRENT) == 1);
+        mDozeTriggerDoubleTap = (Settings.System.getIntForUser(resolver,
+                Settings.System.DOZE_TRIGGER_DOUBLETAP, 1,
+                UserHandle.USER_CURRENT) == 1);
+    }
+
     private void reregisterAllSensors() {
         for (TriggerSensor s : mSensors) {
             s.setListening(false);
@@ -475,61 +493,6 @@ public class DozeService extends DreamService {
             }
         }
         return null;
-    }
-
-    /**
-     * Settingsobserver to take care of the user settings.
-     */
-    private class SettingsObserver extends ContentObserver {
-        SettingsObserver(Handler handler) {
-            super(handler);
-        }
-
-        void observe() {
-            ContentResolver resolver = mContext.getContentResolver();
-            resolver.registerContentObserver(Settings.Secure.getUriFor(
-                    Settings.Secure.DOZE_ENABLED),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOZE_TRIGGER_PICKUP),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOZE_TRIGGER_SIGMOTION),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOZE_TRIGGER_NOTIFICATION),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOZE_TRIGGER_DOUBLETAP),
-                    false, this, UserHandle.USER_ALL);
-            update();
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            super.onChange(selfChange);
-            update();
-        }
-
-        public void update() {
-            ContentResolver resolver = mContext.getContentResolver();
-
-            // Get preferences
-            mDozeEnabled = (Settings.Secure.getInt(resolver,
-                    Settings.Secure.DOZE_ENABLED, 1) == 1);
-            mDozeTriggerPickup = (Settings.System.getIntForUser(resolver,
-                    Settings.System.DOZE_TRIGGER_PICKUP, 1,
-                    UserHandle.USER_CURRENT) == 1);
-            mDozeTriggerSigmotion = (Settings.System.getIntForUser(resolver,
-                    Settings.System.DOZE_TRIGGER_SIGMOTION, 1,
-                    UserHandle.USER_CURRENT) == 1);
-            mDozeTriggerNotification = (Settings.System.getIntForUser(resolver,
-                    Settings.System.DOZE_TRIGGER_NOTIFICATION, 1,
-                    UserHandle.USER_CURRENT) == 1);
-            mDozeTriggerDoubleTap = (Settings.System.getIntForUser(resolver,
-                    Settings.System.DOZE_TRIGGER_DOUBLETAP, 1,
-                    UserHandle.USER_CURRENT) == 1);
-        }
     }
 
     private class TriggerSensor extends TriggerEventListener {
