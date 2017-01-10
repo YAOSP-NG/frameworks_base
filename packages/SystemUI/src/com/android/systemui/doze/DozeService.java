@@ -92,6 +92,7 @@ public class DozeService extends DreamService {
 
     private AmbientDisplayConfiguration mConfig;
 
+    private boolean mDozeEnabled;
     private boolean mDozeTriggerPickup;
     private boolean mDozeTriggerSigmotion;
     private boolean mDozeTriggerDoubleTap;
@@ -197,7 +198,7 @@ public class DozeService extends DreamService {
         observer.observe();
 
         mDreaming = true;
-        listenForPulseSignals(true);
+        listenForPulseSignals(mDozeEnabled);
 
         // Ask the host to get things ready to start dozing.
         // Once ready, we call startDozing() at which point the CPU may suspend
@@ -330,6 +331,7 @@ public class DozeService extends DreamService {
             if ((s == mPickupSensor && !mDozeTriggerPickup) ||
                     (s == mSigMotionSensor && !mDozeTriggerSigmotion) ||
                     (s == mDoubleTapSensor && !mDozeTriggerDoubleTap)    ) {
+                s.setListening(false);
                 continue;
             }
             s.setListening(listen);
@@ -485,6 +487,9 @@ public class DozeService extends DreamService {
 
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.DOZE_ENABLED),
+                    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DOZE_TRIGGER_PICKUP),
                     false, this, UserHandle.USER_ALL);
@@ -510,6 +515,8 @@ public class DozeService extends DreamService {
             ContentResolver resolver = mContext.getContentResolver();
 
             // Get preferences
+            mDozeEnabled = (Settings.Secure.getInt(resolver,
+                    Settings.Secure.DOZE_ENABLED, 1) == 1);
             mDozeTriggerPickup = (Settings.System.getIntForUser(resolver,
                     Settings.System.DOZE_TRIGGER_PICKUP, 1,
                     UserHandle.USER_CURRENT) == 1);
