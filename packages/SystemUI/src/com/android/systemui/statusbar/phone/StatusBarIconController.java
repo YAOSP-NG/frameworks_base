@@ -157,6 +157,10 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
         mHandler = new Handler();
         loadDimens();
 
+        mRightClock.setStatusBarIconController(this);
+        mCenterClock.setStatusBarIconController(this);
+        mLeftClock.setStatusBarIconController(this);
+
         TunerService.get(mContext).addTunable(this, ICON_BLACKLIST, Clock.CLOCK_SHOW,
                 Clock.CLOCK_STYLE, Clock.CLOCK_COLOR_OVERRIDE, Clock.CLOCK_COLOR);
     }
@@ -693,5 +697,11 @@ public class StatusBarIconController extends StatusBarIconList implements Tunabl
                 mContext.getResources().getDimensionPixelSize(
                         R.dimen.status_bar_clock_end_padding),
                 0);
+    }
+
+    public void setClockAndDateStatus(int width, int mode, boolean enabled) {
+        if (mNotificationIconAreaController != null) {
+            mNotificationIconAreaController.setClockAndDateStatus(width, mode, enabled);
+        }
     }
 }

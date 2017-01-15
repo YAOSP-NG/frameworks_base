@@ -41,6 +41,7 @@ import android.widget.TextView;
 
 import com.android.systemui.DemoMode;
 import com.android.systemui.R;
+import com.android.systemui.statusbar.phone.StatusBarIconController;
 import com.android.systemui.tuner.TunerService;
 import com.android.systemui.tuner.TunerService.Tunable;
 
@@ -108,7 +109,9 @@ public class Clock extends TextView implements DemoMode, Tunable {
     protected int mClockDateShow;
     protected int mClockDateStyle;
     protected int mClockDatePosition;
+    protected int mClockAndDateWidth;
     protected String mClockDateFormat;
+    private StatusBarIconController mStatusBarIconController;
     private Handler mSecondsHandler;
 
     public Clock(Context context) {
@@ -246,6 +249,10 @@ public class Clock extends TextView implements DemoMode, Tunable {
             updateShowClock();
             updateShowSeconds();
             updateClock();
+        }
+        if (mStatusBarIconController != null) {
+            mStatusBarIconController.setClockAndDateStatus(
+                    mClockAndDateWidth, mClockStyle, mShowClock);
         }
     }
 
@@ -458,5 +465,19 @@ public class Clock extends TextView implements DemoMode, Tunable {
             mSecondsHandler.postAtTime(this, SystemClock.uptimeMillis() / 1000 * 1000 + 1000);
         }
     };
+
+    public void setStatusBarIconController(StatusBarIconController statusBarIconController) {
+        mStatusBarIconController = statusBarIconController;
+    }
+
+    @Override
+    protected void onSizeChanged(int xNew, int yNew, int xOld, int yOld){
+        super.onSizeChanged(xNew, yNew, xOld, yOld);
+        mClockAndDateWidth = xNew;
+        if (mStatusBarIconController != null) {
+            mStatusBarIconController.setClockAndDateStatus(
+                    mClockAndDateWidth, mClockStyle, mShowClock);
+        }
+    }
 }
 
