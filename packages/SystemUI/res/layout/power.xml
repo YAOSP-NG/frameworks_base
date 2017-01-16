@@ -23,6 +23,7 @@
     android:layout_weight="0"
     android:src="@drawable/ic_sysbar_power"
     systemui:keyCode="26"
+    systemui:keyRepeat="false"
     android:scaleType="center"
     android:contentDescription="@string/accessibility_power"
     android:paddingStart="@dimen/navigation_key_padding"
