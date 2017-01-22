@@ -141,4 +141,17 @@
     <string name="status_bar_battery_percentage_text_inside">Afficher dans l\'icône</string>
     <string name="status_bar_battery_percentage_text_next">Afficher à côte de l\'icône</string>
 
+    <!-- Advance location quick setting tile -->
+    <string name="accessibility_quick_settings_location_battery_saving">Localisation : Economie d\'énergie.</string>
+    <string name="accessibility_quick_settings_location_gps_only">Localisation : GPS uniquement.</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Localisation : Haute précision.</string>
+    <string name="accessibility_quick_settings_location_changed_battery_saving">Mode de localisation changé en économie d\'énergie.</string>
+    <string name="accessibility_quick_settings_location_changed_gps_only">Mode de localisation changé en GPS uniquement.</string>
+    <string name="accessibility_quick_settings_location_changed_high_accuracy">Mode de localisation changé en haute précision.</string>
+    <string name="quick_settings_location_detail_title">Mode de localisation</string>
+    <string name="quick_settings_location_battery_saving_label">Economie d\'énergie</string>
+    <string name="quick_settings_location_gps_only_label">GPS uniquement</string>
+    <string name="quick_settings_location_high_accuracy_label">Haute précision</string>
+    <string name="quick_settings_location_off_label">Localisation désactivée</string>
+
 </resources>
