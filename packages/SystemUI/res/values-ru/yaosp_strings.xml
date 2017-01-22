@@ -144,4 +144,17 @@
     <string name="status_bar_battery_percentage_text_inside">Внутри значка</string>
     <string name="status_bar_battery_percentage_text_next">Рядом со значком</string>
 
+    <!-- Advance location quick setting tile -->
+    <string name="accessibility_quick_settings_location_battery_saving">Определение местоположения: по координатам сети.</string>
+    <string name="accessibility_quick_settings_location_gps_only">Определение местоположения: по спутникам GPS.</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Определение местоположения: по всем источникам.</string>
+    <string name="accessibility_quick_settings_location_changed_battery_saving">Местоположение теперь будет определяться по координатам сети.</string>
+    <string name="accessibility_quick_settings_location_changed_gps_only">Местоположение теперь будет определяться по спутникам GPS.</string>
+    <string name="accessibility_quick_settings_location_changed_high_accuracy">Местоположение теперь будет определяться по всем источникам.</string>
+    <string name="quick_settings_location_detail_title">Определение местоположения</string>
+    <string name="quick_settings_location_battery_saving_label">По координатам сети</string>
+    <string name="quick_settings_location_gps_only_label">По спутникам GPS</string>
+    <string name="quick_settings_location_high_accuracy_label">По всем источникам</string>
+    <string name="quick_settings_location_off_label">Местоположение выкл.</string>
+
 </resources>
