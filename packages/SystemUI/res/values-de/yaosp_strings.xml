@@ -141,4 +141,17 @@
     <string name="status_bar_battery_percentage_text_inside">Im Batterie Icon</string>
     <string name="status_bar_battery_percentage_text_next">Neben Batterie Icon</string>
 
+    <!-- Advance location quick setting tile -->
+    <string name="accessibility_quick_settings_location_battery_saving">Standord : Stomspar-Modus.</string>
+    <string name="accessibility_quick_settings_location_gps_only">Standord : Nur GPS Empfang.</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Standord : Hohe Präzision.</string>
+    <string name="accessibility_quick_settings_location_changed_battery_saving">Standord-Modus geändert auf Stomspar-Modus.</string>
+    <string name="accessibility_quick_settings_location_changed_gps_only">Standord-Modus geändert auf nur GPS Empfang.</string>
+    <string name="accessibility_quick_settings_location_changed_high_accuracy">Standord-Modus geändert auf hohe Präzision.</string>
+    <string name="quick_settings_location_detail_title">Standord-Modus</string>
+    <string name="quick_settings_location_battery_saving_label">Stomsparend</string>
+    <string name="quick_settings_location_gps_only_label">Nur GPS Empfang</string>
+    <string name="quick_settings_location_high_accuracy_label">Hohe Präzision</string>
+    <string name="quick_settings_location_off_label">Standord deaktiviert</string>
+
 </resources>
