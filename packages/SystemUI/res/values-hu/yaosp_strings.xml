@@ -143,5 +143,18 @@
     <string name="status_bar_battery_percentage_default">Rejtett (alapértelmezett)</string>
     <string name="status_bar_battery_percentage_text_inside">Az ikonon belül</string>
     <string name="status_bar_battery_percentage_text_next">Az ikon mellett</string>
+     
+    <!-- Advance location quick setting tile -->
+    <string name="accessibility_quick_settings_location_battery_saving">Helymeghatározás: akkumulátorkímélő.</string>
+    <string name="accessibility_quick_settings_location_gps_only">Helymeghatározás: csak GPS modul.</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Helymeghatározás: nagy pontosságú.</string>
+    <string name="accessibility_quick_settings_location_changed_battery_saving">A helymeghatározás akkumulátorkímélő módra változott.</string>
+    <string name="accessibility_quick_settings_location_changed_gps_only">A helymeghatározás csak GPS modulra változott.</string>
+    <string name="accessibility_quick_settings_location_changed_high_accuracy">A helymeghatározás nagy pontosságú módra változott.</string>
+    <string name="quick_settings_location_detail_title">Helymeghatározás módja</string>
+    <string name="quick_settings_location_battery_saving_label">Akkumulátorkímélő</string>
+    <string name="quick_settings_location_gps_only_label">Csak GPS modul</string>
+    <string name="quick_settings_location_high_accuracy_label">Nagy pontosság</string>
+    <string name="quick_settings_location_off_label">Helymeghatározás kikapcsolva</string>
 
 </resources>
