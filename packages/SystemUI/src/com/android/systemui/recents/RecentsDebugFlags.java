@@ -28,6 +28,8 @@ import com.android.systemui.tuner.TunerService;
  */
 public class RecentsDebugFlags implements TunerService.Tunable {
 
+    public static final String RECENTS_ENABLE_PAGING = "recents_enable_paging";
+
     public static class Static {
         // Enables debug drawing for the transition thumbnail
         public static final boolean EnableTransitionThumbnailDebugMode = false;
@@ -54,6 +56,8 @@ public class RecentsDebugFlags implements TunerService.Tunable {
         public static final int MockTaskGroupsTaskCount = 12;
     }
 
+    protected boolean mEnablePaging;
+
     /**
      * We read the prefs once when we start the activity, then update them as the tuner changes
      * the flags.
@@ -61,6 +65,7 @@ public class RecentsDebugFlags implements TunerService.Tunable {
     public RecentsDebugFlags(Context context) {
         // Register all our flags, this will also call onTuningChanged() for each key, which will
         // initialize the current state of each flag
+        TunerService.get(context).addTunable(this, RECENTS_ENABLE_PAGING);
     }
 
     /**
@@ -78,11 +83,16 @@ public class RecentsDebugFlags implements TunerService.Tunable {
      * @return whether we are enabling paging.
      */
     public boolean isPagingEnabled() {
-        return Static.EnablePaging;
+        return mEnablePaging;
     }
 
     @Override
     public void onTuningChanged(String key, String newValue) {
         EventBus.getDefault().send(new DebugFlagsChangedEvent());
+
+        if (RECENTS_ENABLE_PAGING.equals(key)) {
+            mEnablePaging = newValue != null &&
+                    Integer.parseInt(newValue) == 1;
+        }
     }
 }
