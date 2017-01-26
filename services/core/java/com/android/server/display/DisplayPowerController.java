@@ -282,8 +282,8 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
                 com.android.internal.R.integer.config_screenBrightnessSettingMinimum));
 
         // Settings observer
-        SettingsObserver observer = new SettingsObserver(mHandler);
-        observer.observe();
+        SettingsObserver mDozeSettingsObserver = new SettingsObserver(mHandler);
+        mDozeSettingsObserver.observe();
 
         mDozeBrightnessDefault = resources.getInteger(
                 com.android.internal.R.integer.config_screenBrightnessDoze);
@@ -394,44 +394,45 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
         }
 
     }
-        /**
-         * Settingsobserver to take care of the user settings.
-         */
-        private class SettingsObserver extends ContentObserver {
-            SettingsObserver(Handler handler) {
-                super(handler);
-            }
 
-            void observe() {
-                ContentResolver resolver = mContext.getContentResolver();
-                resolver.registerContentObserver(Settings.System.getUriFor(
-                        Settings.System.DOZE_BRIGHTNESS),
-                        false, this, UserHandle.USER_ALL);
-                update();
-            }
-
-            @Override
-            public void onChange(boolean selfChange) {
-                super.onChange(selfChange);
-                update();
-            }
-
-            public void update() {
-                ContentResolver resolver = mContext.getContentResolver();
-
-                // Get doze brightness
-                mDozeBrightnessScale = Settings.System.getFloatForUser(resolver,
-                        Settings.System.DOZE_BRIGHTNESS,
-                        -0.01f, UserHandle.USER_CURRENT);
-                // do not allow zero brightness
-                if (mDozeBrightnessScale == 0.0f) {
-                    mDozeBrightnessScale = 0.005f;
-                }
-                mScreenBrightnessDozeConfig = clampAbsoluteBrightness(
-                        (mDozeBrightnessScale == -0.01f) ? mDozeBrightnessDefault
-                        : (int) (mDozeBrightnessScale * mMaxBrightness));
-            }
+    /**
+     * Settingsobserver to take care of the user settings.
+     */
+    private class SettingsObserver extends ContentObserver {
+        SettingsObserver(Handler handler) {
+            super(handler);
         }
+
+        void observe() {
+            ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.Secure.DOZE_BRIGHTNESS),
+                    false, this, UserHandle.USER_ALL);
+            update();
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            update();
+        }
+
+        public void update() {
+            ContentResolver resolver = mContext.getContentResolver();
+
+            // Get doze brightness
+            mDozeBrightnessScale = Settings.System.getFloatForUser(resolver,
+                    Settings.Secure.DOZE_BRIGHTNESS,
+                    -0.01f, UserHandle.USER_CURRENT);
+            // do not allow zero brightness
+            if (mDozeBrightnessScale == 0.0f) {
+                mDozeBrightnessScale = 0.005f;
+            }
+            mScreenBrightnessDozeConfig = clampAbsoluteBrightness(
+                    (mDozeBrightnessScale == -0.01f) ? mDozeBrightnessDefault
+                    : (int) (mDozeBrightnessScale * mMaxBrightness));
+        }
+    }
 
     /**
      * Returns true if the proximity sensor screen-off function is available.

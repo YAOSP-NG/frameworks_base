@@ -17,6 +17,8 @@
 package com.android.systemui.statusbar.phone;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.provider.Settings;
 import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.text.TextUtils;
@@ -26,21 +28,93 @@ import android.util.SparseBooleanArray;
 
 import com.android.internal.hardware.AmbientDisplayConfiguration;
 import com.android.systemui.R;
+import com.android.systemui.tuner.TunerService;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DozeParameters {
+public class DozeParameters implements TunerService.Tunable {
     private static final int MAX_DURATION = 60 * 1000;
 
     private final Context mContext;
 
     private static IntInOutMatcher sPickupSubtypePerformsProxMatcher;
 
+    public boolean mDozeEnabled;
+    public boolean mDozeTriggerPickup;
+    public boolean mDozeTriggerSigmotion;
+    public boolean mDozeTriggerNotification;
+    public boolean mDozeTriggerDoubleTap;
+    public boolean mDozeWakeDoubleTap;
+    public int mDozeFadeInDelayPickup;
+    public int mDozeFadeInDelayDoubleTap;
+    public int mDozeTimeoutDelay;
+    public int mDozeFadeOutDelay;
+    public int mDozeBrightness;
+
     public DozeParameters(Context context) {
         mContext = context;
+        TunerService.get(mContext).addTunable(this,
+                Settings.Secure.DOZE_ENABLED,
+                Settings.Secure.DOZE_TRIGGER_PICKUP,
+                Settings.Secure.DOZE_TRIGGER_SIGMOTION,
+                Settings.Secure.DOZE_TRIGGER_NOTIFICATION,
+                Settings.Secure.DOZE_TRIGGER_DOUBLETAP,
+                Settings.Secure.DOZE_WAKEUP_DOUBLETAP,
+                Settings.Secure.DOZE_FADE_IN_PICKUP,
+                Settings.Secure.DOZE_FADE_IN_DOUBLETAP,
+                Settings.Secure.DOZE_TIMEOUT,
+                Settings.Secure.DOZE_FADE_OUT,
+                Settings.Secure.DOZE_BRIGHTNESS);
+    }
+
+    @Override
+    public void onTuningChanged(String key, String newValue) {
+
+        final Resources resources = mContext.getResources();
+
+        if (Settings.Secure.DOZE_ENABLED.equals(key)) {
+            mDozeEnabled = newValue == null ||
+                    Integer.parseInt(newValue) == 1;
+        } else if (Settings.Secure.DOZE_TRIGGER_PICKUP.equals(key)) {
+            mDozeTriggerPickup = newValue == null ||
+                    Integer.parseInt(newValue) == 1;
+        } else if (Settings.Secure.DOZE_TRIGGER_SIGMOTION.equals(key)) {
+            mDozeTriggerSigmotion = newValue == null ||
+                    Integer.parseInt(newValue) == 1;
+        } else if (Settings.Secure.DOZE_TRIGGER_NOTIFICATION.equals(key)) {
+            mDozeTriggerNotification = newValue == null ||
+                    Integer.parseInt(newValue) == 1;
+        } else if (Settings.Secure.DOZE_TRIGGER_DOUBLETAP.equals(key)) {
+            mDozeTriggerDoubleTap = newValue != null &&
+                    Integer.parseInt(newValue) == 1;
+        } else if (Settings.Secure.DOZE_WAKEUP_DOUBLETAP.equals(key)) {
+            mDozeWakeDoubleTap = newValue == null ||
+                    Integer.parseInt(newValue) == 1;
+        } else if (Settings.Secure.DOZE_FADE_IN_PICKUP.equals(key)) {
+            mDozeFadeInDelayPickup = newValue == null
+                    ? getPulseInDuration(true)
+                    : Integer.parseInt(newValue);
+        } else if (Settings.Secure.DOZE_FADE_IN_DOUBLETAP.equals(key)) {
+            mDozeFadeInDelayDoubleTap = newValue == null
+                    ? getPulseInDuration(false)
+                    : Integer.parseInt(newValue);
+        } else if (Settings.Secure.DOZE_TIMEOUT.equals(key)) {
+            mDozeTimeoutDelay = newValue == null
+                    ? getPulseVisibleDuration()
+                    : Integer.parseInt(newValue);
+        } else if (Settings.Secure.DOZE_FADE_OUT.equals(key)) {
+            mDozeFadeOutDelay = newValue == null
+                    ? getPulseOutDuration()
+                    : Integer.parseInt(newValue);
+        } else if (Settings.Secure.DOZE_BRIGHTNESS.equals(key)) {
+            mDozeBrightness = newValue == null
+                    ? resources.getInteger(
+                            com.android.internal.R.integer.config_screenBrightnessDoze)
+                    : Integer.parseInt(newValue);
+        }
     }
 
     public void dump(PrintWriter pw) {

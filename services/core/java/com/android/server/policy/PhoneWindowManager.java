@@ -885,7 +885,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.Secure.DOUBLE_TAP_TO_WAKE), false, this,
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOZE_TRIGGER_DOUBLETAP), false, this,
+                    Settings.Secure.DOZE_TRIGGER_DOUBLETAP), false, this,
                     UserHandle.USER_ALL);
 
             updateSettings();
@@ -1996,7 +1996,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         mDoubleTapToWake = Settings.Secure.getInt(resolver,
                 Settings.Secure.DOUBLE_TAP_TO_WAKE, 0) == 1;
         mDoubleTapToDoze = Settings.System.getInt(resolver,
-                Settings.System.DOZE_TRIGGER_DOUBLETAP, 0) == 1;
+                Settings.Secure.DOZE_TRIGGER_DOUBLETAP, 0) == 1;
 
         synchronized (mLock) {
             mEndcallBehavior = Settings.System.getIntForUser(resolver,

@@ -2405,7 +2405,7 @@ public class NotificationPanelView extends PanelView implements
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_ANYWHERE), false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOUBLE_TAP_WAKE_DOZE), false, this, UserHandle.USER_ALL);
+                    Settings.Secure.DOZE_WAKEUP_DOUBLETAP), false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -2429,7 +2429,7 @@ public class NotificationPanelView extends PanelView implements
             mDoubleTapToSleepAnywhere = Settings.System.getIntForUser(resolver,
                     Settings.System.DOUBLE_TAP_SLEEP_ANYWHERE, 0, UserHandle.USER_CURRENT) == 1;
             mDozeWakeupDoubleTap = Settings.System.getIntForUser(resolver,
-                    Settings.System.DOUBLE_TAP_WAKE_DOZE, 0, UserHandle.USER_CURRENT) == 1;
+                    Settings.Secure.DOZE_WAKEUP_DOUBLETAP, 0, UserHandle.USER_CURRENT) == 1;
         }
     }
 }

@@ -2768,60 +2768,6 @@ public final class Settings {
         public static final int SCREEN_BRIGHTNESS_MODE_AUTOMATIC = 1;
 
         /**
-         * Doze pulse screen fade in delay
-         * @hide
-         */
-        public static final String DOZE_FADE_IN_PICKUP = "doze_fade_in_pickup";
-
-        /**
-         * Doze pulse screen fade in delay
-         * @hide
-         */
-        public static final String DOZE_FADE_IN_DOUBLETAP = "doze_fade_in_doubletap";
-
-        /**
-         * Timeout for ambient display notification
-         * @hide
-         */
-        public static final String DOZE_TIMEOUT = "doze_timeout";
-
-        /**
-         * Doze pulse screen fade out delay
-         * @hide
-         */
-        public static final String DOZE_FADE_OUT = "doze_fade_out";
-
-        /**
-         * Use pick up gesture sensor as doze pulse trigger
-         * @hide
-         */
-        public static final String DOZE_TRIGGER_PICKUP = "doze_trigger_pickup";
-
-        /**
-         * Use significant motion sensor as doze pulse trigger
-         * @hide
-         */
-        public static final String DOZE_TRIGGER_SIGMOTION = "doze_trigger_sigmotion";
-
-        /**
-         * Use notifications as doze pulse triggers
-         * @hide
-         */
-        public static final String DOZE_TRIGGER_NOTIFICATION = "doze_trigger_notification";
-
-        /**
-         * Use doubletap as doze pulse triggers
-         * @hide
-         */
-        public static final String DOZE_TRIGGER_DOUBLETAP = "doze_trigger_doubletap";
-
-        /**
-         * Doze pulse screen brightness level
-         * @hide
-         */
-        public static final String DOZE_BRIGHTNESS = "doze_brightness";
-
-        /**
          * Control whether the process CPU usage meter should be shown.
          *
          * @deprecated This functionality is no longer available as of
@@ -3721,12 +3667,6 @@ public final class Settings {
          * @hide
          */
         public static final String DOUBLE_TAP_SLEEP_NAVBAR = "double_tap_sleep_navbar";
-
-        /**
-         * Require double tap instead of simple tap to wake from Doze pulse screen
-         * @hide
-         */
-        public static final String DOUBLE_TAP_WAKE_DOZE = "double_tap_wake_doze";
 
         /**
          * What color to use for the battery LED while low
@@ -6442,6 +6382,66 @@ public final class Settings {
          * @hide
          */
         public static final String DOZE_PULSE_ON_DOUBLE_TAP = "doze_pulse_on_double_tap";
+
+        /**
+         * Doze pulse screen fade in delay
+         * @hide
+         */
+        public static final String DOZE_FADE_IN_PICKUP = "doze_fade_in_pickup";
+
+        /**
+         * Doze pulse screen fade in delay
+         * @hide
+         */
+        public static final String DOZE_FADE_IN_DOUBLETAP = "doze_fade_in_doubletap";
+
+        /**
+         * Timeout for ambient display notification
+         * @hide
+         */
+        public static final String DOZE_TIMEOUT = "doze_timeout";
+
+        /**
+         * Doze pulse screen fade out delay
+         * @hide
+         */
+        public static final String DOZE_FADE_OUT = "doze_fade_out";
+
+        /**
+         * Require double tap instead of simple tap to wake from Doze pulse screen
+         * @hide
+         */
+        public static final String DOZE_WAKEUP_DOUBLETAP = "doze_wakeup_doubletap";
+
+        /**
+         * Use pick up gesture sensor as doze pulse trigger
+         * @hide
+         */
+        public static final String DOZE_TRIGGER_PICKUP = "doze_trigger_pickup";
+
+        /**
+         * Use significant motion sensor as doze pulse trigger
+         * @hide
+         */
+        public static final String DOZE_TRIGGER_SIGMOTION = "doze_trigger_sigmotion";
+
+        /**
+         * Use notifications as doze pulse triggers
+         * @hide
+         */
+        public static final String DOZE_TRIGGER_NOTIFICATION = "doze_trigger_notification";
+
+        /**
+         * Use doubletap as doze pulse triggers
+         * @hide
+         */
+        public static final String DOZE_TRIGGER_DOUBLETAP = "doze_trigger_doubletap";
+
+        /**
+         * Doze pulse screen brightness level
+         * @hide
+         */
+        public static final String DOZE_BRIGHTNESS = "doze_brightness";
 
         /**
          * The current night mode that has been selected by the user.  Owned
