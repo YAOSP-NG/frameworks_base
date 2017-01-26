@@ -2768,10 +2768,28 @@ public final class Settings {
         public static final int SCREEN_BRIGHTNESS_MODE_AUTOMATIC = 1;
 
         /**
+         * Doze pulse screen fade in delay
+         * @hide
+         */
+        public static final String DOZE_FADE_IN_PICKUP = "doze_fade_in_pickup";
+
+        /**
+         * Doze pulse screen fade in delay
+         * @hide
+         */
+        public static final String DOZE_FADE_IN_DOUBLETAP = "doze_fade_in_doubletap";
+
+        /**
          * Timeout for ambient display notification
          * @hide
          */
         public static final String DOZE_TIMEOUT = "doze_timeout";
+
+        /**
+         * Doze pulse screen fade out delay
+         * @hide
+         */
+        public static final String DOZE_FADE_OUT = "doze_fade_out";
 
         /**
          * Use pick up gesture sensor as doze pulse trigger

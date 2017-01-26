@@ -52,7 +52,10 @@ public class DozeScrimController {
     private Animator mBehindAnimator;
     private float mInFrontTarget;
     private float mBehindTarget;
-    private int mCustomTimeoutDelay = 3000;
+    private int mCustomFadeInDelayPickup;
+    private int mCustomFadeInDelayDoubleTap;
+    private int mCustomTimeoutDelay;
+    private int mCustomFadeOutDelay;
 
     public DozeScrimController(ScrimController scrimController, Context context) {
         mScrimController = scrimController;
@@ -60,8 +63,9 @@ public class DozeScrimController {
         mDozeParameters = new DozeParameters(context);
 
         // Settings observer
-        SettingsObserver observer = new SettingsObserver(mHandler);
-        observer.observe();
+        SettingsObserver mSettingsObserver = new SettingsObserver(mHandler);
+        mSettingsObserver.observe();
+        mSettingsObserver.updateSettings();
     }
 
     public void setDozing(boolean dozing, boolean animate) {
@@ -123,7 +127,7 @@ public class DozeScrimController {
             final boolean pickupOrDoubleTap = mPulseReason == DozeLog.PULSE_REASON_SENSOR_PICKUP
                     || mPulseReason == DozeLog.PULSE_REASON_SENSOR_DOUBLE_TAP;
             startScrimAnimation(true /* inFront */, 0f,
-                    mDozeParameters.getPulseInDuration(pickupOrDoubleTap),
+                    pickupOrDoubleTap ? mCustomFadeInDelayPickup : mCustomFadeInDelayDoubleTap,
                     pickupOrDoubleTap ? Interpolators.LINEAR_OUT_SLOW_IN : Interpolators.ALPHA_OUT,
                     mPulseInFinished);
         }
@@ -273,7 +277,7 @@ public class DozeScrimController {
         public void run() {
             if (DEBUG) Log.d(TAG, "Pulse out, mDozing=" + mDozing);
             if (!mDozing) return;
-            startScrimAnimation(true /* inFront */, 1f, mDozeParameters.getPulseOutDuration(),
+            startScrimAnimation(true /* inFront */, 1f, mCustomFadeOutDelay,
                     Interpolators.ALPHA_IN, mPulseOutFinished);
         }
     };
@@ -300,23 +304,47 @@ public class DozeScrimController {
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOZE_FADE_IN_PICKUP),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOZE_FADE_IN_DOUBLETAP),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DOZE_TIMEOUT),
                     false, this, UserHandle.USER_ALL);
-            update();
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOZE_FADE_OUT),
+                    false, this, UserHandle.USER_ALL);
+            updateSettings();
         }
 
         @Override
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
-            update();
+            updateSettings();
         }
 
-        public void update() {
+        public void updateSettings() {
             ContentResolver resolver = mContext.getContentResolver();
-
+            // Get custom fade in (pickup)
+            mCustomFadeInDelayPickup = Settings.System.getIntForUser(resolver,
+                    Settings.System.DOZE_FADE_IN_PICKUP,
+                    mDozeParameters.getPulseInDuration(true),
+                    UserHandle.USER_CURRENT);
+            // Get custom fade in (DoubleTap)
+            mCustomFadeInDelayDoubleTap = Settings.System.getIntForUser(resolver,
+                    Settings.System.DOZE_FADE_IN_DOUBLETAP,
+                    mDozeParameters.getPulseInDuration(false),
+                    UserHandle.USER_CURRENT);
             // Get custom timeout
             mCustomTimeoutDelay = Settings.System.getIntForUser(resolver,
-                    Settings.System.DOZE_TIMEOUT, 3000,
+                    Settings.System.DOZE_TIMEOUT,
+                    mDozeParameters.getPulseVisibleDuration(),
+                    UserHandle.USER_CURRENT);
+            // Get custom fade in
+            mCustomFadeOutDelay = Settings.System.getIntForUser(resolver,
+                    Settings.System.DOZE_FADE_OUT,
+                    mDozeParameters.getPulseOutDuration(),
                     UserHandle.USER_CURRENT);
         }
     }
