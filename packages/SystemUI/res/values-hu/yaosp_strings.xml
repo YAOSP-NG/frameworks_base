@@ -155,6 +155,6 @@
     <string name="quick_settings_location_battery_saving_label">Energiatakarékos</string>
     <string name="quick_settings_location_gps_only_label">Csak a készüléken</string>
     <string name="quick_settings_location_high_accuracy_label">Nagyon pontos</string>
-    <string name="quick_settings_location_off_label">Helymeghatározás kikapcsolva..</string>
+    <string name="quick_settings_location_off_label">Helymeghatározás kikapcsolva</string>
 
 </resources>
