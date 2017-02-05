@@ -154,4 +154,7 @@
     <string name="quick_settings_location_high_accuracy_label">Haute précision</string>
     <string name="quick_settings_location_off_label">Localisation désactivée</string>
 
+    <!-- accessibility label for button to open running apps prefscreen -->
+    <string name="accessibility_quick_settings_running_services">Ouvrir l\'écran des services en exécution.</string>
+
 </resources>
