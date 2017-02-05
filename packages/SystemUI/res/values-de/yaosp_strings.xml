@@ -154,4 +154,7 @@
     <string name="quick_settings_location_high_accuracy_label">Hohe Präzision</string>
     <string name="quick_settings_location_off_label">Standord deaktiviert</string>
 
+    <!-- accessibility label for button to open running apps prefscreen -->
+    <string name="accessibility_quick_settings_running_services">Bildschirm der laufenden Dienste öffnen.</string>
+
 </resources>
