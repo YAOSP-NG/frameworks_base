@@ -18,6 +18,7 @@ package android.media;
 
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.SystemProperties;
 import android.util.Log;
 
 /**
@@ -110,6 +111,9 @@ public class MediaActionSound {
             state = STATE_NOT_LOADED;
         }
     }
+
+    private static final String PROP_CAMERA_SOUND = "persist.sys.camera-sound";
+
     /**
      * Construct a new MediaActionSound instance. Only a single instance is
      * needed for playing any platform media action sound; you do not need a
@@ -203,29 +207,31 @@ public class MediaActionSound {
      * @see #STOP_VIDEO_RECORDING
      */
     public void play(int soundName) {
-        if (soundName < 0 || soundName >= SOUND_FILES.length) {
-            throw new RuntimeException("Unknown sound requested: " + soundName);
-        }
-        SoundState sound = mSounds[soundName];
-        synchronized (sound) {
-            switch (sound.state) {
-            case STATE_NOT_LOADED:
-                loadSound(sound);
-                if (loadSound(sound) <= 0) {
-                    Log.e(TAG, "play() error loading sound: " + soundName);
+        if (SystemProperties.getBoolean(PROP_CAMERA_SOUND, true)) {
+            if (soundName < 0 || soundName >= SOUND_FILES.length) {
+                throw new RuntimeException("Unknown sound requested: " + soundName);
+            }
+            SoundState sound = mSounds[soundName];
+            synchronized (sound) {
+                switch (sound.state) {
+                case STATE_NOT_LOADED:
+                    loadSound(sound);
+                    if (loadSound(sound) <= 0) {
+                        Log.e(TAG, "play() error loading sound: " + soundName);
+                        break;
+                    }
+                    // FALL THROUGH
+
+                case STATE_LOADING:
+                    sound.state = STATE_LOADING_PLAY_REQUESTED;
+                    break;
+                case STATE_LOADED:
+                    mSoundPool.play(sound.id, 1.0f, 1.0f, 0, 0, 1.0f);
+                    break;
+                default:
+                    Log.e(TAG, "play() called in wrong state: " + sound.state + " for sound: "+ soundName);
                     break;
                 }
-                // FALL THROUGH
-
-            case STATE_LOADING:
-                sound.state = STATE_LOADING_PLAY_REQUESTED;
-                break;
-            case STATE_LOADED:
-                mSoundPool.play(sound.id, 1.0f, 1.0f, 0, 0, 1.0f);
-                break;
-            default:
-                Log.e(TAG, "play() called in wrong state: " + sound.state + " for sound: "+ soundName);
-                break;
             }
         }
     }
