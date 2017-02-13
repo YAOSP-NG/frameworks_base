@@ -103,6 +103,9 @@
     <string name="accessibility_quick_settings_usb_tether_changed_off">USB-Tethering wurde ausgeschaltet</string>
     <string name="accessibility_quick_settings_usb_tether_changed_on">USB-Tethering wurde eingeschaltet</string>
 
+    <!-- Screen off QS tile -->
+    <string name="quick_settings_screen_off">Display aus</string>
+
     <!-- NavBar -->
     <!-- Power Key -->
     <string name="power">Bildschirm ausschalten</string>

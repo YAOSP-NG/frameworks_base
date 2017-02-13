@@ -103,6 +103,9 @@
     <string name="accessibility_quick_settings_usb_tether_changed_off">Modem USB a été désactivé</string>
     <string name="accessibility_quick_settings_usb_tether_changed_on">Modem USB a été activé</string>
 
+    <!-- Screen off QS tile -->
+    <string name="quick_settings_screen_off">Veille</string>
+
     <!-- NavBar -->
     <!-- Power Key -->
     <string name="power">Éteindre l\'écran</string>
