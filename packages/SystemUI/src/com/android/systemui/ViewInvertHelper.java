@@ -115,10 +115,13 @@ public class ViewInvertHelper {
                 0f,         0f,         components, 0f, 255f * intensity,
                 0f,         0f,         0f,         1f, 0f
         };
+        final boolean themeInvert = Settings.Secure.getInt(mContext.getContentResolver(),
+                Settings.Secure.NOTIFICATION_TITLE_TINT, 1) == 1;
         mMatrix.set(invert);
         mGrayscaleMatrix.setSaturation(1 - intensity);
         mMatrix.preConcat(mGrayscaleMatrix);
-        mDarkPaint.setColorFilter(new ColorMatrixColorFilter(mMatrix));
+        mDarkPaint.setColorFilter(new ColorMatrixColorFilter(
+                themeInvert ? mMatrix : mGrayscaleMatrix));
     }
 
     public void setInverted(boolean invert, boolean fade, long delay) {
