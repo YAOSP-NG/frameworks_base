@@ -106,6 +106,23 @@
     <!-- Screen off QS tile -->
     <string name="quick_settings_screen_off">Display aus</string>
 
+    <!-- Compass QS Tile -->
+    <string name="quick_settings_compass_label">Kompass</string>
+    <string name="quick_settings_compass_value"><xliff:g id="degrees">%1$.0f</xliff:g>\u00b0 <xliff:g id="direction">%2$s</xliff:g></string>
+    <string name="quick_settings_compass_init">Initialisiere\u2026</string>
+    <string name="accessibility_quick_settings_compass_off">Kompass ausgeschaltet</string>
+    <string name="accessibility_quick_settings_compass_on">Kompass eingeschaltet.</string>
+    <string name="accessibility_quick_settings_compass_changed_off">Kompass wurde ausgeschaltet.</string>
+    <string name="accessibility_quick_settings_compass_changed_on">Kompass wurde eingeschaltet.</string>
+    <string name="quick_settings_compass_N">N</string>
+    <string name="quick_settings_compass_NE">NO</string>
+    <string name="quick_settings_compass_E">O</string>
+    <string name="quick_settings_compass_SE">SO</string>
+    <string name="quick_settings_compass_S">S</string>
+    <string name="quick_settings_compass_SW">SW</string>
+    <string name="quick_settings_compass_W">W</string>
+<string name="quick_settings_compass_NW">NW</string>
+
     <!-- NavBar -->
     <!-- Power Key -->
     <string name="power">Bildschirm ausschalten</string>
