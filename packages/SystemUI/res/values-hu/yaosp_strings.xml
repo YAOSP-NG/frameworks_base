@@ -71,6 +71,9 @@
     <string name="accessibility_quick_settings_nfc_on">NFC be</string>
     <string name="accessibility_quick_settings_nfc_changed_off">NFC kikapcsolva</string>
     <string name="accessibility_quick_settings_nfc_changed_on">NFC bekapcsolva</string>
+     
+    <!-- Screen off QS tile -->
+    <string name="quick_settings_screen_off">Képernyő ki</string>
 
     <!-- Quick settings customization -->
     <string name="qs_menu_item_columns">Soronkénti csempék száma</string>
