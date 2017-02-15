@@ -71,6 +71,9 @@
     <string name="accessibility_quick_settings_nfc_on">NFC be</string>
     <string name="accessibility_quick_settings_nfc_changed_off">NFC kikapcsolva</string>
     <string name="accessibility_quick_settings_nfc_changed_on">NFC bekapcsolva</string>
+     
+    <!-- Screen off QS tile -->
+    <string name="quick_settings_screen_off">Képernyő ki</string>
 
     <!-- Quick settings customization -->
     <string name="qs_menu_item_columns">Soronkénti csempék száma</string>
@@ -156,5 +159,25 @@
     <string name="quick_settings_location_gps_only_label">Csak a készüléken</string>
     <string name="quick_settings_location_high_accuracy_label">Nagyon pontos</string>
     <string name="quick_settings_location_off_label">Helymeghatározás kikapcsolva</string>
+     
+    <!-- accessibility label for button to open running apps prefscreen -->
+    <string name="accessibility_quick_settings_running_services">Megnyitja a futó szolgáltatásokat a képernyőn.</string>
+
+    <!-- Compass QS Tile -->
+    <string name="quick_settings_compass_label">Iránytű</string>
+    <string name="quick_settings_compass_value"><xliff:g id="degrees">%1$.0f</xliff:g>\u00b0 <xliff:g id="direction">%2$s</xliff:g></string>
+    <string name="quick_settings_compass_init">Előkészítés\u2026</string>
+    <string name="accessibility_quick_settings_compass_off">Iránytű ki.</string>
+    <string name="accessibility_quick_settings_compass_on">Iránytű be.</string>
+    <string name="accessibility_quick_settings_compass_changed_off">Iránytű kikapcsolva.</string>
+    <string name="accessibility_quick_settings_compass_changed_on">Iránytű bekapcsolva.</string>
+    <string name="quick_settings_compass_N">É</string>
+    <string name="quick_settings_compass_NE">ÉK</string>
+    <string name="quick_settings_compass_E">K</string>
+    <string name="quick_settings_compass_SE">DK</string>
+    <string name="quick_settings_compass_S">D</string>
+    <string name="quick_settings_compass_SW">DNy</string>
+    <string name="quick_settings_compass_W">Ny</string>
+    <string name="quick_settings_compass_NW">ÉNy</string>
 
 </resources>
